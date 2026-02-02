@@ -24,11 +24,11 @@ export default function CommonNavbarClient({
       <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
         {/* Brand */}
         <Link href="/" className="flex items-center gap-3">
-          <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
+          <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
             SB
           </div>
           <span
-            className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent"
+            className="text-2xl font-bold bg-linear-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent"
             style={{ fontFamily: "Fraunces, serif" }}
           >
             {brand}

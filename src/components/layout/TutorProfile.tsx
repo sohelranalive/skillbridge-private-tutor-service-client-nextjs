@@ -136,7 +136,7 @@ export default function TutorProfile() {
                     className="w-32 h-32 rounded-2xl border-4 border-indigo-100"
                   />
                   {tutor.verified && (
-                    <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
+                    <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-linear-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                       <svg
                         className="w-6 h-6 text-white"
                         fill="currentColor"
@@ -245,7 +245,7 @@ export default function TutorProfile() {
                     >
                       {tab.charAt(0).toUpperCase() + tab.slice(1)}
                       {activeTab === tab && (
-                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-indigo-600 to-purple-600" />
+                        <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-linear-to-r from-indigo-600 to-purple-600" />
                       )}
                     </button>
                   ))}
@@ -441,7 +441,7 @@ export default function TutorProfile() {
                   </div>
                 </div>
 
-                <button className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
+                <button className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                   Book Now
                 </button>
 

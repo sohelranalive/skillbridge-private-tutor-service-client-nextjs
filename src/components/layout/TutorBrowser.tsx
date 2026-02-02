@@ -112,7 +112,7 @@ export default function TutorBrowser() {
       {/* Header */}
 
       {/* Search Bar */}
-      <section className="bg-gradient-to-r from-rose-600 to-orange-600 text-white py-12">
+      <section className="bg-linear-to-r from-rose-600 to-orange-600 text-white py-12">
         <div className="max-w-7xl mx-auto px-6">
           <h1 className="text-4xl font-bold mb-3 animate-slide-down">
             Find Your Perfect Tutor
@@ -143,7 +143,7 @@ export default function TutorBrowser() {
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="flex-1 outline-none text-gray-700 placeholder-gray-400 py-3"
               />
-              <button className="px-8 py-3 bg-gradient-to-r from-rose-600 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+              <button className="px-8 py-3 bg-linear-to-r from-rose-600 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
                 Search
               </button>
             </div>
@@ -167,7 +167,7 @@ export default function TutorBrowser() {
                     onClick={() => setSelectedCategory(category.id)}
                     className={`w-full flex items-center justify-between px-4 py-3 rounded-xl transition-all ${
                       selectedCategory === category.id
-                        ? "bg-gradient-to-r from-rose-600 to-orange-600 text-white shadow-lg"
+                        ? "bg-linear-to-r from-rose-600 to-orange-600 text-white shadow-lg"
                         : "bg-gray-50 text-gray-700 hover:bg-gray-100"
                     }`}
                   >
@@ -315,14 +315,14 @@ export default function TutorBrowser() {
                 >
                   <div className="flex gap-6">
                     {/* Avatar */}
-                    <div className="relative flex-shrink-0">
+                    <div className="relative shrink-0">
                       <img
                         src={tutor.avatar}
                         alt={tutor.name}
                         className="w-24 h-24 rounded-2xl border-2 border-rose-200"
                       />
                       {tutor.verified && (
-                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-gradient-to-br from-rose-600 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
+                        <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-linear-to-br from-rose-600 to-orange-600 rounded-full flex items-center justify-center shadow-lg">
                           <svg
                             className="w-5 h-5 text-white"
                             fill="currentColor"
@@ -396,7 +396,7 @@ export default function TutorBrowser() {
                       </div>
 
                       <div className="flex gap-3">
-                        <button className="px-6 py-2.5 bg-gradient-to-r from-rose-600 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
+                        <button className="px-6 py-2.5 bg-linear-to-r from-rose-600 to-orange-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all">
                           Book Session
                         </button>
                         <Link href="/tutors/abc">
@@ -436,7 +436,7 @@ export default function TutorBrowser() {
                   key={page}
                   className={`px-4 py-2 rounded-lg font-semibold transition-all ${
                     page === 1
-                      ? "bg-gradient-to-r from-rose-600 to-orange-600 text-white"
+                      ? "bg-linear-to-r from-rose-600 to-orange-600 text-white"
                       : "border border-gray-300 text-gray-700 hover:bg-gray-50"
                   }`}
                 >

@@ -134,13 +134,13 @@ export default function TutorDashboard() {
   ];
 
   return (
-    <div className="tutor-dashboard min-h-screen bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50">
+    <div className="tutor-dashboard min-h-screen bg-linear-to-br from-emerald-50 via-teal-50 to-cyan-50">
       {/* Top Navigation */}
       <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
+              <div className="w-10 h-10 bg-linear-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
                 SB
               </div>
               <div>
@@ -224,7 +224,7 @@ export default function TutorDashboard() {
                   {todaySessions.map((session) => (
                     <div
                       key={session.id}
-                      className="p-5 bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 hover:shadow-lg transition-all"
+                      className="p-5 bg-linear-to-br from-emerald-50 to-teal-50 rounded-2xl border border-emerald-200 hover:shadow-lg transition-all"
                     >
                       <div className="flex items-start gap-4">
                         <img
@@ -253,7 +253,7 @@ export default function TutorDashboard() {
                           </div>
 
                           <div className="flex gap-3 mt-4">
-                            <button className="px-5 py-2.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105">
+                            <button className="px-5 py-2.5 bg-linear-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105">
                               Start Session
                             </button>
                             <button className="px-5 py-2.5 border border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all">
@@ -340,7 +340,7 @@ export default function TutorDashboard() {
                       availabilityMode === "view" ? "edit" : "view",
                     )
                   }
-                  className="px-4 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
+                  className="px-4 py-2 bg-linear-to-r from-emerald-600 to-teal-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all"
                 >
                   {availabilityMode === "view"
                     ? "Edit Schedule"
@@ -390,7 +390,7 @@ export default function TutorDashboard() {
           {/* Right Column - Stats & Reviews */}
           <div className="space-y-6">
             {/* Quick Stats */}
-            <div className="bg-gradient-to-br from-emerald-600 to-teal-600 rounded-3xl shadow-xl p-6 text-white animate-fade-up delay-100">
+            <div className="bg-linear-to-br from-emerald-600 to-teal-600 rounded-3xl shadow-xl p-6 text-white animate-fade-up delay-100">
               <h3 className="text-xl font-bold mb-6 display-font">
                 Your Performance
               </h3>
@@ -487,7 +487,7 @@ export default function TutorDashboard() {
                 </div>
                 <div className="w-full bg-gray-200 rounded-full h-2">
                   <div
-                    className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-full h-2"
+                    className="bg-linear-to-r from-emerald-600 to-teal-600 rounded-full h-2"
                     style={{ width: "95%" }}
                   />
                 </div>

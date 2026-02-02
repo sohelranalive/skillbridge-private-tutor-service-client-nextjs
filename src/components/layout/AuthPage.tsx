@@ -25,7 +25,7 @@ export default function AuthPage() {
   };
 
   return (
-    // <div className="auth-page min-h-screen bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-6">
+    // <div className="auth-page min-h-screen bg-linear-to-br from-indigo-100 via-purple-100 to-pink-100 flex items-center justify-center p-6">
     <div className="auth-page min-h-screen flex items-center justify-center p-6">
       {/* Decorative Background Elements */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
@@ -42,10 +42,10 @@ export default function AuthPage() {
           {/* Left Side - Branding */}
           <div className="text-center lg:text-left space-y-6 animate-slide-left">
             <div className="flex items-center justify-center lg:justify-start gap-4 mb-8">
-              <div className="w-16 h-16 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-3xl transform -rotate-6 shadow-2xl">
+              <div className="w-16 h-16 bg-linear-to-br from-indigo-600 to-purple-600 rounded-2xl flex items-center justify-center text-white font-bold text-3xl transform -rotate-6 shadow-2xl">
                 SB
               </div>
-              <span className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-4xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                 SkillBridge
               </span>
             </div>
@@ -53,7 +53,7 @@ export default function AuthPage() {
             <h1 className="text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
               Transform Your
               <br />
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Learning Journey
               </span>
             </h1>
@@ -90,7 +90,7 @@ export default function AuthPage() {
                 onClick={() => setIsLogin(true)}
                 className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all ${
                   isLogin
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-purple-300"
+                    ? "bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-purple-300"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -100,7 +100,7 @@ export default function AuthPage() {
                 onClick={() => setIsLogin(false)}
                 className={`flex-1 py-3 px-6 rounded-xl font-semibold transition-all ${
                   !isLogin
-                    ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-purple-300"
+                    ? "bg-linear-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-purple-300"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -256,7 +256,7 @@ export default function AuthPage() {
 
               <button
                 type="submit"
-                className="w-full py-4 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-purple-300 hover:shadow-xl transition-all transform hover:scale-105"
+                className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold text-lg shadow-lg shadow-purple-300 hover:shadow-xl transition-all transform hover:scale-105"
               >
                 {isLogin ? "Sign In" : "Create Account"}
               </button>

@@ -104,20 +104,20 @@ export default function StudentDashboard() {
   };
 
   return (
-    <div className="student-dashboard min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-fuchsia-50">
+    <div className="student-dashboard min-h-screen bg-linear-to-br from-violet-50 via-purple-50 to-fuchsia-50">
       {/* Sidebar */}
       <aside className="fixed left-0 top-0 h-full w-72 bg-white border-r border-gray-200 p-6 flex flex-col">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-8">
-            <div className="w-10 h-10 bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
+            <div className="w-10 h-10 bg-linear-to-br from-violet-600 to-fuchsia-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
               SB
             </div>
-            <span className="text-2xl font-bold serif-font bg-gradient-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
+            <span className="text-2xl font-bold serif-font bg-linear-to-r from-violet-600 to-fuchsia-600 bg-clip-text text-transparent">
               SkillBridge
             </span>
           </div>
 
-          <div className="flex items-center gap-4 p-4 bg-gradient-to-br from-violet-100 to-fuchsia-100 rounded-2xl">
+          <div className="flex items-center gap-4 p-4 bg-linear-to-br from-violet-100 to-fuchsia-100 rounded-2xl">
             <img
               src={student.avatar}
               alt={student.name}
@@ -143,7 +143,7 @@ export default function StudentDashboard() {
               key={item.label}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all ${
                 item.active
-                  ? "bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-300"
+                  ? "bg-linear-to-r from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-300"
                   : "text-gray-600 hover:bg-gray-100"
               }`}
             >
@@ -206,7 +206,7 @@ export default function StudentDashboard() {
               className={`bg-white rounded-2xl p-6 shadow-lg border border-gray-100 hover:shadow-xl transition-shadow animate-pop-in delay-${idx + 1}`}
             >
               <div
-                className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center text-2xl mb-4`}
+                className={`w-12 h-12 bg-linear-to-br ${stat.color} rounded-xl flex items-center justify-center text-2xl mb-4`}
               >
                 {stat.icon}
               </div>
@@ -256,7 +256,7 @@ export default function StudentDashboard() {
                   ? upcomingSessions.map((session, idx) => (
                       <div
                         key={session.id}
-                        className="p-6 bg-gradient-to-br from-violet-50 to-fuchsia-50 rounded-2xl border border-violet-200 hover:shadow-lg transition-shadow animate-pop-in"
+                        className="p-6 bg-linear-to-br from-violet-50 to-fuchsia-50 rounded-2xl border border-violet-200 hover:shadow-lg transition-shadow animate-pop-in"
                         style={{ animationDelay: `${idx * 0.1}s`, opacity: 0 }}
                       >
                         <div className="flex items-start gap-4">
@@ -323,7 +323,7 @@ export default function StudentDashboard() {
 
                             <div className="flex gap-3">
                               {session.meetingLink && (
-                                <button className="px-4 py-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
+                                <button className="px-4 py-2 bg-linear-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
                                   Join Session
                                 </button>
                               )}
@@ -373,7 +373,7 @@ export default function StudentDashboard() {
                             </div>
 
                             {!session.reviewed && (
-                              <button className="px-4 py-2 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
+                              <button className="px-4 py-2 bg-linear-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
                                 Leave a Review
                               </button>
                             )}
@@ -393,7 +393,7 @@ export default function StudentDashboard() {
                 Quick Actions
               </h3>
               <div className="space-y-3">
-                <button className="w-full p-4 bg-gradient-to-r from-violet-600 to-fuchsia-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2">
+                <button className="w-full p-4 bg-linear-to-r from-violet-600 to-fuchsia-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all flex items-center justify-center gap-2">
                   <svg
                     className="w-5 h-5"
                     fill="none"
@@ -475,7 +475,7 @@ export default function StudentDashboard() {
             </div>
 
             {/* Learning Progress */}
-            <div className="bg-gradient-to-br from-violet-600 to-fuchsia-600 rounded-3xl shadow-xl p-6 text-white animate-pop-in delay-4">
+            <div className="bg-linear-to-br from-violet-600 to-fuchsia-600 rounded-3xl shadow-xl p-6 text-white animate-pop-in delay-4">
               <h3 className="font-bold text-lg mb-4">This Month's Progress</h3>
               <div className="space-y-4">
                 <div>

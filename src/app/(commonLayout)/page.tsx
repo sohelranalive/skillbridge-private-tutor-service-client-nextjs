@@ -63,14 +63,14 @@ export default function Home() {
   ];
 
   return (
-    // <div className="landing-page min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-rose-50">
+    // <div className="landing-page min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-rose-50">
     <div className="landing-page min-h-screen">
       {/* Hero Section */}
       <header className="relative overflow-hidden">
         {/* Decorative elements */}
-        <div className="absolute top-20 left-10 w-64 h-64 bg-gradient-to-br from-orange-300/20 to-rose-300/20 rounded-full blur-3xl animate-float" />
+        <div className="absolute top-20 left-10 w-64 h-64 bg-linear-to-br from-orange-300/20 to-rose-300/20 rounded-full blur-3xl animate-float" />
         <div
-          className="absolute bottom-10 right-20 w-80 h-80 bg-gradient-to-br from-amber-300/20 to-yellow-300/20 rounded-full blur-3xl animate-float"
+          className="absolute bottom-10 right-20 w-80 h-80 bg-linear-to-br from-amber-300/20 to-yellow-300/20 rounded-full blur-3xl animate-float"
           style={{ animationDelay: "2s" }}
         />
 
@@ -78,11 +78,11 @@ export default function Home() {
           {/* Navigation */}
           {/* <nav className="flex items-center justify-between mb-20 animate-slide-up">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
+              <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
                 SB
               </div>
               <span
-                className="text-2xl font-bold bg-gradient-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent"
+                className="text-2xl font-bold bg-linear-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent"
                 style={{ fontFamily: "Fraunces, serif" }}
               >
                 SkillBridge
@@ -110,7 +110,7 @@ export default function Home() {
               >
                 Learn from the{" "}
                 <span className="relative inline-block">
-                  <span className="relative z-10 bg-gradient-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent">
+                  <span className="relative z-10 bg-linear-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent">
                     world's best
                   </span>
                   <svg
@@ -161,7 +161,7 @@ export default function Home() {
                         className="flex-1 outline-none text-gray-700 placeholder-gray-400"
                       />
                     </div>
-                    <button className="px-8 py-3 bg-gradient-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-300 transition-all transform hover:scale-105">
+                    <button className="px-8 py-3 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-300 transition-all transform hover:scale-105">
                       Search
                     </button>
                   </div>
@@ -193,14 +193,14 @@ export default function Home() {
 
             {/* Hero Image/Illustration */}
             <div className="relative animate-scale-in stagger-2">
-              <div className="relative z-10 bg-gradient-to-br from-orange-100 to-rose-100 rounded-3xl p-8 border-2 border-orange-200">
+              <div className="relative z-10 bg-linear-to-br from-orange-100 to-rose-100 rounded-3xl p-8 border-2 border-orange-200">
                 <img
                   src="https://api.dicebear.com/7.x/shapes/svg?seed=learning&backgroundColor=fff7ed"
                   alt="Learning illustration"
                   className="w-full h-96 object-contain"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 w-full h-full bg-gradient-to-br from-orange-300 to-rose-300 rounded-3xl -z-0" />
+              <div className="absolute -bottom-6 -right-6 w-full h-full bg-linear-to-br from-orange-300 to-rose-300 rounded-3xl -Z-0" />
             </div>
           </div>
         </div>
@@ -222,7 +222,7 @@ export default function Home() {
               onClick={() => setSelectedCategory(category.id)}
               className={`p-6 rounded-2xl border-2 transition-all transform hover:scale-105 animate-slide-up ${
                 selectedCategory === category.id
-                  ? "bg-gradient-to-br from-orange-500 to-rose-600 border-orange-600 text-white shadow-xl shadow-orange-300"
+                  ? "bg-linear-to-br from-orange-500 to-rose-600 border-orange-600 text-white shadow-xl shadow-orange-300"
                   : "bg-white border-gray-200 hover:border-orange-300 hover:shadow-lg"
               }`}
               style={{ animationDelay: `${idx * 0.1}s`, opacity: 0 }}
@@ -276,7 +276,7 @@ export default function Home() {
                   alt={tutor.name}
                   className="w-20 h-20 rounded-2xl border-2 border-orange-200"
                 />
-                <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-gradient-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white text-xs font-bold">
+                <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white text-xs font-bold">
                   {tutor.rating}★
                 </div>
               </div>
@@ -314,7 +314,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <button className="w-full mt-4 py-3 bg-gradient-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-300 transition-all transform hover:scale-105">
+              <button className="w-full mt-4 py-3 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-300 transition-all transform hover:scale-105">
                 View Profile
               </button>
             </div>
@@ -324,7 +324,7 @@ export default function Home() {
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-6 py-20">
-        <div className="relative bg-gradient-to-br from-orange-500 via-rose-600 to-pink-600 rounded-3xl p-16 text-center text-white overflow-hidden">
+        <div className="relative bg-linear-to-br from-orange-500 via-rose-600 to-pink-600 rounded-3xl p-16 text-center text-white overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full opacity-10">
             <div className="absolute top-10 left-10 w-40 h-40 border-4 border-white rounded-full" />
             <div className="absolute bottom-20 right-20 w-60 h-60 border-4 border-white rounded-full" />

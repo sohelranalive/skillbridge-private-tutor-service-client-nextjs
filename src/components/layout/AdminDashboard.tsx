@@ -125,12 +125,12 @@ export default function AdminDashboard() {
   };
 
   return (
-    <div className="admin-dashboard min-h-screen bg-gradient-to-br from-gray-50 via-slate-50 to-zinc-50">
+    <div className="admin-dashboard min-h-screen bg-linear-to-br from-gray-50 via-slate-50 to-zinc-50">
       {/* Sidebar */}
       <aside className="fixed left-0 top-0 h-full w-64 bg-gray-900 text-white p-6 flex flex-col">
         <div className="mb-10">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-lg">
+            <div className="w-10 h-10 bg-linear-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center font-bold text-lg">
               SB
             </div>
             <span className="text-xl font-bold heading-font">SkillBridge</span>
@@ -254,7 +254,7 @@ export default function AdminDashboard() {
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div
-                      className={`w-12 h-12 bg-gradient-to-br ${stat.color} rounded-xl flex items-center justify-center text-2xl`}
+                      className={`w-12 h-12 bg-linear-to-br ${stat.color} rounded-xl flex items-center justify-center text-2xl`}
                     >
                       {stat.icon}
                     </div>
@@ -319,7 +319,7 @@ export default function AdminDashboard() {
                       </div>
                       <div className="flex-1 bg-gray-100 rounded-full h-8 overflow-hidden">
                         <div
-                          className="bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full flex items-center justify-end pr-3 text-white text-sm font-semibold"
+                          className="bg-linear-to-r from-blue-500 to-purple-600 h-full rounded-full flex items-center justify-end pr-3 text-white text-sm font-semibold"
                           style={{ width: `${(data.revenue / 30000) * 100}%` }}
                         >
                           ${(data.revenue / 1000).toFixed(1)}k

@@ -1,5 +1,5 @@
-import FeaturedTutors from "@/components/layout/FeaturedTutors";
-import SearchBar from "@/components/layout/SearchBar";
+import FeaturedTutors from "@/components/home-layout/FeaturedTutors";
+import SearchBar from "@/components/home-layout/SearchBar";
 import TeachingCategory from "@/components/layout/TeachingCategory";
 import { tutorService } from "@/service/tutor.service";
 import Link from "next/link";

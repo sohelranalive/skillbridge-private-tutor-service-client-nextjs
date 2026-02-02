@@ -1,66 +1,86 @@
-"use client";
+import FeaturedTutors from "@/components/layout/FeaturedTutors";
+import SearchBar from "@/components/layout/SearchBar";
+import TeachingCategory from "@/components/layout/TeachingCategory";
+import { tutorService } from "@/service/tutor.service";
 import Link from "next/link";
-import { useState } from "react";
 
-export default function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+export default async function Home() {
+  // const [searchQuery, setSearchQuery] = useState("");
+  // const [selectedCategory, setSelectedCategory] = useState("all");
 
-  const categories = [
-    { id: "all", name: "All Subjects", icon: "📚" },
-    { id: "math", name: "Mathematics", icon: "🔢" },
-    { id: "science", name: "Science", icon: "🔬" },
-    { id: "languages", name: "Languages", icon: "🗣️" },
-    { id: "arts", name: "Arts", icon: "🎨" },
-    { id: "tech", name: "Technology", icon: "💻" },
-  ];
+  // const categories = [
+  //   { id: "all", name: "All Subjects", icon: "📚" },
+  //   { id: "math", name: "Mathematics", icon: "🔢" },
+  //   { id: "science", name: "Science", icon: "🔬" },
+  //   { id: "languages", name: "Languages", icon: "🗣️" },
+  //   { id: "arts", name: "Arts", icon: "🎨" },
+  //   { id: "tech", name: "Technology", icon: "💻" },
+  // ];
 
-  const featuredTutors = [
+  // const featuredTutors = [
+  //   {
+  //     id: 1,
+  //     name: "Dr. Sarah Chen",
+  //     subject: "Advanced Mathematics",
+  //     rating: 4.9,
+  //     reviews: 127,
+  //     price: 45,
+  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+  //     sessions: 340,
+  //     expertise: ["Calculus", "Linear Algebra", "Statistics"],
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Marcus Johnson",
+  //     subject: "Computer Science",
+  //     rating: 4.8,
+  //     reviews: 89,
+  //     price: 50,
+  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
+  //     sessions: 215,
+  //     expertise: ["Python", "Web Dev", "Algorithms"],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Elena Rodriguez",
+  //     subject: "Spanish Literature",
+  //     rating: 5.0,
+  //     reviews: 156,
+  //     price: 40,
+  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena",
+  //     sessions: 428,
+  //     expertise: ["Conversation", "Grammar", "Literature"],
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Dr. James Wilson",
+  //     subject: "Physics",
+  //     rating: 4.7,
+  //     reviews: 94,
+  //     price: 48,
+  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
+  //     sessions: 267,
+  //     expertise: ["Mechanics", "Quantum", "Thermodynamics"],
+  //   },
+  // ];
+
+  const result = await tutorService.getTutors(
     {
-      id: 1,
-      name: "Dr. Sarah Chen",
-      subject: "Advanced Mathematics",
-      rating: 4.9,
-      reviews: 127,
-      price: 45,
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-      sessions: 340,
-      expertise: ["Calculus", "Linear Algebra", "Statistics"],
+      isFeatured: false,
+      search: "",
+      subject: "",
+      ratings: 0,
+      price: 0,
+      category: "",
     },
     {
-      id: 2,
-      name: "Marcus Johnson",
-      subject: "Computer Science",
-      rating: 4.8,
-      reviews: 89,
-      price: 50,
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
-      sessions: 215,
-      expertise: ["Python", "Web Dev", "Algorithms"],
+      cache: "no-store",
     },
-    {
-      id: 3,
-      name: "Elena Rodriguez",
-      subject: "Spanish Literature",
-      rating: 5.0,
-      reviews: 156,
-      price: 40,
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena",
-      sessions: 428,
-      expertise: ["Conversation", "Grammar", "Literature"],
-    },
-    {
-      id: 4,
-      name: "Dr. James Wilson",
-      subject: "Physics",
-      rating: 4.7,
-      reviews: 94,
-      price: 48,
-      image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
-      sessions: 267,
-      expertise: ["Mechanics", "Quantum", "Thermodynamics"],
-    },
-  ];
+  );
+
+  const tutors = result.data?.data || [];
+
+  console.log("Inside home: ", tutors);
 
   return (
     // <div className="landing-page min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-rose-50">
@@ -136,7 +156,7 @@ export default function Home() {
               </p>
 
               {/* Search Bar */}
-              <div className="relative animate-slide-up stagger-3">
+              {/* <div className="relative animate-slide-up stagger-3">
                 <div className="bg-white rounded-2xl shadow-2xl shadow-orange-200/50 p-3 border-2 border-gray-100">
                   <div className="flex items-center gap-3">
                     <div className="flex-1 flex items-center gap-3 px-4">
@@ -166,7 +186,8 @@ export default function Home() {
                     </button>
                   </div>
                 </div>
-              </div>
+              </div> */}
+              <SearchBar />
 
               {/* Stats */}
               <div className="flex items-center gap-8 animate-slide-up stagger-4">
@@ -207,7 +228,7 @@ export default function Home() {
       </header>
 
       {/* Categories Section */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      {/* <section className="max-w-7xl mx-auto px-6 py-20">
         <h2
           className="text-4xl font-bold text-center mb-12"
           style={{ fontFamily: "Fraunces, serif" }}
@@ -240,10 +261,12 @@ export default function Home() {
             </button>
           ))}
         </div>
-      </section>
+      </section> */}
+
+      <TeachingCategory />
 
       {/* Featured Tutors */}
-      <section className="max-w-7xl mx-auto px-6 py-20">
+      {/* <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-12">
           <div>
             <h2
@@ -320,7 +343,9 @@ export default function Home() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
+
+      <FeaturedTutors tutors={tutors} />
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-6 py-20">

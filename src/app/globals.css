@@ -9,9 +9,12 @@
 
 /* Tailwind import — after font imports */
 @import "tailwindcss";
+@import "tw-animate-css";
 
-/* Now your theme + rest */
+@custom-variant dark (&:is(.dark *));
+
 @theme {
+  /* Component-specific font families */
   --font-landing-page: "Cabinet Grotesk", -apple-system, sans-serif;
   --font-tutor-profile: "Inter", -apple-system, sans-serif;
   --font-student-dashboard: "DM Sans", -apple-system, sans-serif;
@@ -20,6 +23,7 @@
   --font-auth-page: "Poppins", -apple-system, sans-serif;
   --font-tutor-browser: "Outfit", -apple-system, sans-serif;
 
+  /* Serif fonts */
   --font-fraunces: "Fraunces", serif;
   --font-playfair: "Playfair Display", serif;
   --font-dm-serif: "DM Serif Display", serif;
@@ -71,6 +75,13 @@
 .display-font {
   font-family: var(--font-bebas);
   letter-spacing: 0.5px;
+}
+
+/* Dark Mode Smooth Transition */
+* {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease;
 }
 
 /* Animations */

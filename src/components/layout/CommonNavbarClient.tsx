@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+// import ThemeToggle from "./ThemeToggle";
 
 export type CommonNavbarUser = {
   isSignedIn: boolean;
@@ -78,6 +79,8 @@ export default function CommonNavbarClient({
               </span>
             </Link>
           )}
+
+          {/* <ThemeToggle /> */}
         </div>
       </nav>
     </header>

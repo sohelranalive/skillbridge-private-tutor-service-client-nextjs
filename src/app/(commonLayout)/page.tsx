@@ -1,6 +1,7 @@
 import FeaturedTutors from "@/components/home-layout/FeaturedTutors";
 import SearchBar from "@/components/home-layout/SearchBar";
 import TeachingCategory from "@/components/home-layout/TeachingCategory";
+import TestimonialPage from "@/components/home-layout/Testimonial";
 import { tutorService } from "@/service/tutor.service";
 import Link from "next/link";
 
@@ -355,6 +356,8 @@ export default async function Home() {
         </div>
       </section> */}
       <FeaturedTutors tutors={tutors} />
+
+      <TestimonialPage />
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="relative bg-linear-to-br from-orange-500 via-rose-600 to-pink-600 rounded-3xl p-16 text-center text-white overflow-hidden">

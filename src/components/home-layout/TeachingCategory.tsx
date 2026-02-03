@@ -168,7 +168,7 @@ export default function TeachingCategory({ categories }: any) {
         style={{ animationDelay: "0.5s", opacity: 0 }}
       >
         <Link href="/tutors">
-          <button className="px-8 py-4 bg-white dark:bg-gray-800 border-2 border-gray-900 dark:border-gray-700 text-gray-900 dark:text-white rounded-full font-bold hover:bg-gray-900 hover:text-white dark:hover:bg-gray-700 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+          <button className="px-8 py-4 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-full font-bold text-lg shadow-lg shadow-orange-300 dark:shadow-orange-900/50 hover:shadow-xl transition-all transform hover:scale-105">
             Browse All Categories →
           </button>
         </Link>

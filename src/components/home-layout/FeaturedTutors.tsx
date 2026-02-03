@@ -36,7 +36,7 @@ export default function FeaturedTutors({ tutors }: FeaturedTutorsProps) {
   //     },
   //   );
 
-  console.log("Inside Featured Tutors:", tutors);
+  // console.log("Inside Featured Tutors:", tutors);
 
   const featuredTutors = [
     {

@@ -21,7 +21,7 @@ export const tutorService = {
     try {
       const url = new URL(`${APU_URL}/api/v1/tutor/all-tutors`);
 
-      console.log("first ", params);
+      // console.log("first ", params);
 
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
@@ -41,11 +41,11 @@ export const tutorService = {
         config.next = { revalidate: options.revalidate };
       }
 
-      console.log("second", url);
+      // console.log("second", url);
 
       const res = await fetch(url.toString(), config);
 
-      console.log(res);
+      // console.log(res);
 
       const data = await res.json();
 

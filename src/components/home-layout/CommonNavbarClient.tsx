@@ -46,7 +46,7 @@ export default function CommonNavbarClient({
           </Link>
 
           <Link
-            href="/login-register"
+            href="/register"
             className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
           >
             Become a Tutor
@@ -55,7 +55,7 @@ export default function CommonNavbarClient({
           {/* Right side: Sign in OR Avatar */}
           {!user.isSignedIn ? (
             <Link
-              href="/login-register"
+              href="/login"
               className="px-5 py-2.5 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-semibold hover:bg-gray-900 hover:text-white transition-all transform hover:scale-105"
             >
               Sign In

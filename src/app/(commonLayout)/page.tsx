@@ -80,7 +80,7 @@ export default async function Home() {
 
   const tutors = result.data?.data || [];
 
-  console.log("Inside home: ", tutors);
+  // console.log("Inside home: ", tutors);
 
   return (
     // <div className="landing-page min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-rose-50">

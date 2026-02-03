@@ -49,7 +49,7 @@ export default function CommonNavbarClient({
             href="/register"
             className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
           >
-            Become a Tutor
+            Become a Member
           </Link>
 
           {/* Right side: Sign in OR Avatar */}

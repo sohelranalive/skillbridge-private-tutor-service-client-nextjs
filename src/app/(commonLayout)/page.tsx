@@ -1,6 +1,6 @@
 import FeaturedTutors from "@/components/home-layout/FeaturedTutors";
 import SearchBar from "@/components/home-layout/SearchBar";
-import TeachingCategory from "@/components/layout/TeachingCategory";
+import TeachingCategory from "@/components/home-layout/TeachingCategory";
 import { tutorService } from "@/service/tutor.service";
 import Link from "next/link";
 
@@ -366,7 +366,7 @@ export default async function Home() {
               Share your expertise with thousands of eager learners. Set your
               own schedule, rates, and make a real impact.
             </p>
-            <Link href="login-register">
+            <Link href="register">
               <button className="px-8 py-4 bg-white text-orange-600 rounded-full font-bold text-lg hover:shadow-2xl transition-all transform hover:scale-105">
                 Become a Tutor Today
               </button>

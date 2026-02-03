@@ -59,10 +59,11 @@ export const tutorService = {
       return { data: null, error: { message: "Something went wrong" } };
     }
   },
-  getBlogById: async function (id: string) {
+  getCategory: async function () {
     try {
-      const res = await fetch(`${APU_URL}/post/${id}`);
+      const res = await fetch(`${APU_URL}/api/v1/user/all-category`);
       const data = await res.json();
+
       return { data: data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong" } };

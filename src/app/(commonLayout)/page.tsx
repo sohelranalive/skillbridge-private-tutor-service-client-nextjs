@@ -64,7 +64,7 @@ export default async function Home() {
   //   },
   // ];
 
-  const result = await tutorService.getTutors(
+  const featuredTutors = await tutorService.getTutors(
     {
       isFeatured: false,
       search: "",
@@ -78,7 +78,19 @@ export default async function Home() {
     },
   );
 
-  const tutors = result.data?.data || [];
+  const tutors = featuredTutors.data?.data || [];
+
+  // console.log("Inside Server Component Tutors: ", tutors);
+
+  const teachingCategory = await tutorService.getCategory();
+
+  const categories = teachingCategory.data?.data || [];
+
+  console.log(categories);
+
+  // console.log("Inside Server Component Category: ", categories);
+
+  // console.log(category);
 
   // console.log("Inside home: ", tutors);
 
@@ -187,7 +199,7 @@ export default async function Home() {
                   </div>
                 </div>
               </div> */}
-              <SearchBar />
+              {/* <SearchBar /> */}
 
               {/* Stats */}
               <div className="flex items-center gap-8 animate-slide-up stagger-4">
@@ -226,7 +238,6 @@ export default async function Home() {
           </div>
         </div>
       </header>
-
       {/* Categories Section */}
       {/* <section className="max-w-7xl mx-auto px-6 py-20">
         <h2
@@ -262,9 +273,8 @@ export default async function Home() {
           ))}
         </div>
       </section> */}
-
-      <TeachingCategory />
-
+      {/* categories={categories} */}
+      <TeachingCategory categories={categories} />
       {/* Featured Tutors */}
       {/* <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="flex items-end justify-between mb-12">
@@ -344,9 +354,7 @@ export default async function Home() {
           ))}
         </div>
       </section> */}
-
       <FeaturedTutors tutors={tutors} />
-
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-6 py-20">
         <div className="relative bg-linear-to-br from-orange-500 via-rose-600 to-pink-600 rounded-3xl p-16 text-center text-white overflow-hidden">

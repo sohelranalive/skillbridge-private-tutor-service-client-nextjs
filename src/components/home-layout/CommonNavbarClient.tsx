@@ -19,6 +19,8 @@ export default function CommonNavbarClient({
   brand = "SkillBridge",
   user,
 }: Props) {
+  console.log("Print inside navbar: ", user);
+
   return (
     // <header className="w-full bg-transparent">
     <header className="w-full bg-transparent border-b border-orange-100/60">
@@ -45,39 +47,61 @@ export default function CommonNavbarClient({
             Find Tutors
           </Link>
 
-          <Link
+          {/* <Link
             href="/register"
             className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
           >
             Become a Member
-          </Link>
+          </Link> */}
 
           {/* Right side: Sign in OR Avatar */}
           {!user.isSignedIn ? (
-            <Link
-              href="/login"
-              className="px-5 py-2.5 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-semibold hover:bg-gray-900 hover:text-white transition-all transform hover:scale-105"
-            >
-              Sign In
-            </Link>
+            <>
+              <Link
+                href="/register"
+                className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
+              >
+                Become a Member
+              </Link>
+              <Link
+                href="/login"
+                className="px-5 py-2.5 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-semibold hover:bg-gray-900 hover:text-white transition-all transform hover:scale-105"
+              >
+                Sign In
+              </Link>
+            </>
           ) : (
-            <Link
-              href="/profile"
-              className="flex items-center gap-3 px-3 py-2 bg-white/70 backdrop-blur border border-orange-100 rounded-full hover:bg-white transition"
-              title={user.name ?? "Profile"}
-            >
-              <div className="relative w-9 h-9 rounded-full overflow-hidden border border-orange-200">
-                <Image
-                  src={user.avatarUrl!}
-                  alt={user.name ?? "Profile"}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <span className="text-sm font-semibold text-gray-800 hidden sm:block">
-                {user.name ?? "Profile"}
-              </span>
-            </Link>
+            <>
+              <Link
+                href="/"
+                className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
+              >
+                My Dashboard
+              </Link>
+
+              <Link
+                href="/profile"
+                className="flex items-center gap-3 px-3 py-2 bg-white/70 backdrop-blur border border-orange-100 rounded-full hover:bg-white transition"
+                title={user.name ? user.name : "Profile"}
+              >
+                <div className="relative w-9 h-9 rounded-full overflow-hidden border border-orange-200">
+                  <Image
+                    src={
+                      user.avatarUrl
+                        ? user.avatarUrl
+                        : "https://api.dicebear.com/7.x/avataaars/svg?seed=SkillBridgeUser"
+                    }
+                    alt={user.name ? user.name : "Profile"}
+                    fill
+                    unoptimized
+                    className="object-cover"
+                  />
+                </div>
+                <span className="text-sm font-semibold text-gray-800 hidden sm:block">
+                  {user.name ?? "Profile"}
+                </span>
+              </Link>
+            </>
           )}
 
           {/* <ThemeToggle /> */}

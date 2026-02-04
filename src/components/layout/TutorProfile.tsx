@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function TutorProfile() {
@@ -88,22 +89,24 @@ export default function TutorProfile() {
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-          <button className="flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors">
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-            Back to Search
-          </button>
+          <Link href="/tutors">
+            <button className="flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+              Back to Search
+            </button>
+          </Link>
           <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
             <svg
               className="w-6 h-6 text-gray-600"

@@ -67,7 +67,7 @@ export default async function Home() {
 
   const featuredTutors = await tutorService.getTutors(
     {
-      isFeatured: false,
+      isFeatured: true,
       search: "",
       subject: "",
       ratings: 0,
@@ -87,7 +87,7 @@ export default async function Home() {
 
   const categories = teachingCategory.data?.data || [];
 
-  console.log(categories);
+  // console.log(categories);
 
   // console.log("Inside Server Component Category: ", categories);
 

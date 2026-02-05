@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-// import ThemeToggle from "./ThemeToggle";
 
 export type CommonNavbarUser = {
   isSignedIn: boolean;
@@ -22,10 +21,9 @@ export default function CommonNavbarClient({
   console.log("Print inside navbar: ", user);
 
   return (
-    // <header className="w-full bg-transparent">
     <header className="w-full bg-transparent border-b border-orange-100/60">
       <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
-        {/* Brand */}
+        {/* Logo side */}
         <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
             SB
@@ -38,7 +36,7 @@ export default function CommonNavbarClient({
           </span>
         </Link>
 
-        {/* Links */}
+        {/* Menu Side */}
         <div className="flex items-center gap-6">
           <Link
             href="/tutors"
@@ -47,14 +45,7 @@ export default function CommonNavbarClient({
             Find Tutors
           </Link>
 
-          {/* <Link
-            href="/register"
-            className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
-          >
-            Become a Member
-          </Link> */}
-
-          {/* Right side: Sign in OR Avatar */}
+          {/* Menu side: Conditional rendering */}
           {!user.isSignedIn ? (
             <>
               <Link
@@ -98,13 +89,11 @@ export default function CommonNavbarClient({
                   />
                 </div>
                 <span className="text-sm font-semibold text-gray-800 hidden sm:block">
-                  {user.name ?? "Profile"}
+                  {user.name ? user.name : "Profile"}
                 </span>
               </Link>
             </>
           )}
-
-          {/* <ThemeToggle /> */}
         </div>
       </nav>
     </header>

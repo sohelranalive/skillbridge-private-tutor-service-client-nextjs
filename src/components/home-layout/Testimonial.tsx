@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function TestimonialPage() {
@@ -224,9 +225,11 @@ export default function TestimonialPage() {
         className="text-center mt-12 animate-slide-up"
         style={{ animationDelay: "0.4s", opacity: 0 }}
       >
-        <button className="px-8 py-4 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-full font-bold text-lg shadow-lg shadow-orange-300 dark:shadow-orange-900/50 hover:shadow-xl transition-all transform hover:scale-105">
-          Share Your Success Story →
-        </button>
+        <Link href="/reviews">
+          <button className="px-8 py-4 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-full font-bold text-lg shadow-lg shadow-orange-300 dark:shadow-orange-900/50 hover:shadow-xl transition-all transform hover:scale-105">
+            Read All Success Story →
+          </button>
+        </Link>
       </div>
     </div>
   );

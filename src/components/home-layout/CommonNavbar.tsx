@@ -1,22 +1,15 @@
 import { cookies, headers } from "next/headers";
 import CommonNavbarClient from "./CommonNavbarClient";
+import { userService } from "@/service/user.service";
 
-// Server component: can read cookies/headers
-export default function CommonNavbar() {
-  const _h = headers(); // keep for future (e.g., locale, host, etc.)
-  const cookieStore = cookies();
-
-  // Example cookie keys (change later to match your real auth)
-  const token = "";
-  // const avatarUrl = null; // optional
-  // const name = null; // optional
-
-  const user = token
+export default async function CommonNavbar() {
+  const isUserSignedIn = await userService.getSession();
+  const userInfo = isUserSignedIn.data.user;
+  const user = userInfo
     ? {
         isSignedIn: true,
-        name: "User",
-        avatarUrl:
-          "https://api.dicebear.com/7.x/avataaars/svg?seed=SkillBridgeUser",
+        name: userInfo.name,
+        avatarUrl: userInfo.image,
       }
     : { isSignedIn: false };
 

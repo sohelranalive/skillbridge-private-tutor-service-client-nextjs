@@ -7,7 +7,7 @@ export default function CommonNavbar() {
   const cookieStore = cookies();
 
   // Example cookie keys (change later to match your real auth)
-  const token = "hhhh";
+  const token = "";
   // const avatarUrl = null; // optional
   // const name = null; // optional
 

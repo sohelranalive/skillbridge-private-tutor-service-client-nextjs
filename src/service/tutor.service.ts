@@ -59,6 +59,19 @@ export const tutorService = {
       return { data: null, error: { message: "Something went wrong" } };
     }
   },
+
+  getTutorById: async function (params?: string) {
+    try {
+      const res = await fetch(
+        `${APU_URL}/api/v1/tutor/tutor-profile/${params}`,
+      );
+      const data = await res.json();
+      return { data: data.data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+
   getCategory: async function () {
     try {
       const res = await fetch(`${APU_URL}/api/v1/user/all-category`);

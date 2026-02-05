@@ -1,51 +1,13 @@
 "use client";
 
+import { Roles } from "@/constants/roles";
 import Link from "next/link";
 import { useState } from "react";
 
-export default function TutorProfile() {
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedTime, setSelectedTime] = useState(null);
+export default function TutorProfile({ tutor }: any) {
   const [activeTab, setActiveTab] = useState("about");
 
-  const tutor = {
-    id: 1,
-    name: "Dr. Sarah Chen",
-    title: "Advanced Mathematics Expert",
-    image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-    rating: 4.9,
-    totalReviews: 127,
-    totalSessions: 340,
-    hourlyRate: 45,
-    responseTime: "< 2 hours",
-    verified: true,
-    expertise: [
-      "Calculus",
-      "Linear Algebra",
-      "Statistics",
-      "Differential Equations",
-      "Probability Theory",
-    ],
-    languages: ["English", "Mandarin"],
-    education: [
-      {
-        degree: "PhD in Mathematics",
-        institution: "Stanford University",
-        year: "2015",
-      },
-      { degree: "MS in Applied Mathematics", institution: "MIT", year: "2010" },
-    ],
-    experience: "10+ years teaching experience",
-    about: `I'm passionate about making complex mathematical concepts accessible and enjoyable. My teaching philosophy centers on building strong foundations and fostering critical thinking skills. Whether you're struggling with basic algebra or diving into advanced calculus, I tailor my approach to your learning style and goals.`,
-    teachingStyle: "Interactive problem-solving with real-world applications",
-    availability: [
-      { day: "Monday", slots: ["09:00", "10:30", "14:00", "16:00"] },
-      { day: "Tuesday", slots: ["09:00", "11:00", "15:00"] },
-      { day: "Wednesday", slots: ["10:00", "14:00", "16:30"] },
-      { day: "Thursday", slots: ["09:00", "10:30", "14:00", "15:30"] },
-      { day: "Friday", slots: ["09:00", "13:00", "15:00"] },
-    ],
-  };
+  const ratingsssss = 4.7;
 
   const reviews = [
     {
@@ -84,9 +46,42 @@ export default function TutorProfile() {
     { label: "Repeat Students", value: "85%" },
   ];
 
+  interface AvailabilitySlot {
+    id: string;
+    start_time: string;
+    end_time: string;
+  }
+
+  const availability: AvailabilitySlot[] = [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      start_time: "2024-02-10T09:00:00.000Z",
+      end_time: "2024-02-10T10:00:00.000Z",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440002",
+      start_time: "2024-02-10T10:30:00.000Z",
+      end_time: "2024-02-10T11:30:00.000Z",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440003",
+      start_time: "2024-02-11T13:00:00.000Z",
+      end_time: "2024-02-11T14:00:00.000Z",
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440004",
+      start_time: "2024-02-12T16:00:00.000Z",
+      end_time: "2024-02-12T17:00:00.000Z",
+    },
+  ];
+
+  // Fix state type
+  const [selectedDate, setSelectedDate] = useState<AvailabilitySlot | null>(
+    null,
+  );
   return (
     <div className="tutor-profile min-h-screen">
-      {/* Header */}
+      {/* Header back to search button */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/tutors">
@@ -125,20 +120,19 @@ export default function TutorProfile() {
         </div>
       </header>
 
+      {/* Main Content starts from here*/}
       <div className="max-w-7xl mx-auto px-6 py-12">
         <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Content */}
           <div className="lg:col-span-2 space-y-8">
-            {/* Profile Header */}
             <div className="bg-white rounded-3xl p-8 shadow-lg border border-gray-100 animate-fade-in">
               <div className="flex items-start gap-6">
                 <div className="relative">
                   <img
-                    src={tutor.image}
-                    alt={tutor.name}
+                    src={tutor?.tutor?.image}
+                    alt={tutor?.tutor?.name}
                     className="w-32 h-32 rounded-2xl border-4 border-indigo-100"
                   />
-                  {tutor.verified && (
+                  {tutor.isVerified && (
                     <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-linear-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                       <svg
                         className="w-6 h-6 text-white"
@@ -159,15 +153,17 @@ export default function TutorProfile() {
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h1 className="text-3xl font-bold text-gray-900 heading-font mb-1">
-                        {tutor.name}
+                        {tutor.tutor.name}
                       </h1>
-                      <p className="text-lg text-gray-600">{tutor.title}</p>
+                      <p className="text-lg text-gray-600">
+                        {tutor.category.category_name}
+                      </p>
                     </div>
                     <div className="text-right">
                       <div className="text-4xl font-bold text-indigo-600">
-                        ${tutor.hourlyRate}
+                        ${tutor.price}
                       </div>
-                      <div className="text-sm text-gray-500">per hour</div>
+                      <div className="text-sm text-gray-500">per session</div>
                     </div>
                   </div>
 
@@ -177,7 +173,7 @@ export default function TutorProfile() {
                         {[...Array(5)].map((_, i) => (
                           <svg
                             key={i}
-                            className={`w-5 h-5 ${i < Math.floor(tutor.rating) ? "text-yellow-400" : "text-gray-300"}`}
+                            className={`w-5 h-5 ${i < Math.floor(ratingsssss) ? "text-yellow-400" : "text-gray-300"}`}
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -186,20 +182,22 @@ export default function TutorProfile() {
                         ))}
                       </div>
                       <span className="font-semibold text-gray-900">
-                        {tutor.rating}
+                        {tutor.ratings}
                       </span>
                       <span className="text-gray-500">
-                        ({tutor.totalReviews} reviews)
+                        10 reviews
+                        {/* ({tutor.totalReviews} reviews) */}
                       </span>
                     </div>
                     <span className="text-gray-300">•</span>
                     <span className="text-gray-600">
-                      {tutor.totalSessions} sessions completed
+                      10 sessions completed
+                      {/* {tutor.totalSessions} sessions completed */}
                     </span>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {tutor.expertise.slice(0, 4).map((skill) => (
+                    {tutor.subjects.map((skill: string) => (
                       <span
                         key={skill}
                         className="px-3 py-1.5 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-full"
@@ -207,36 +205,16 @@ export default function TutorProfile() {
                         {skill}
                       </span>
                     ))}
-                    {tutor.expertise.length > 4 && (
-                      <span className="px-3 py-1.5 bg-gray-100 text-gray-600 text-sm font-medium rounded-full">
-                        +{tutor.expertise.length - 4} more
-                      </span>
-                    )}
                   </div>
                 </div>
               </div>
-            </div>
-
-            {/* Stats Grid */}
-            <div className="grid grid-cols-4 gap-4 animate-fade-in stagger-1">
-              {stats.map((stat, idx) => (
-                <div
-                  key={idx}
-                  className="bg-white rounded-2xl p-6 text-center shadow-md border border-gray-100 hover:shadow-xl transition-shadow"
-                >
-                  <div className="text-2xl font-bold text-gray-900 mb-1">
-                    {stat.value}
-                  </div>
-                  <div className="text-sm text-gray-600">{stat.label}</div>
-                </div>
-              ))}
             </div>
 
             {/* Tabs */}
             <div className="bg-white rounded-3xl shadow-lg border border-gray-100 animate-fade-in stagger-2">
               <div className="border-b border-gray-200">
                 <div className="flex gap-8 px-8 pt-6">
-                  {["about", "reviews", "availability"].map((tab) => (
+                  {["about", "reviews"].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab)}
@@ -262,7 +240,7 @@ export default function TutorProfile() {
                       <h3 className="font-bold text-lg mb-3 text-gray-900">
                         About Me
                       </h3>
-                      <p className="text-gray-700 leading-relaxed">
+                      <p className="text-gray-700 leading-relaxed text-justify">
                         {tutor.about}
                       </p>
                     </div>
@@ -272,35 +250,22 @@ export default function TutorProfile() {
                         Education
                       </h3>
                       <div className="space-y-3">
-                        {tutor.education.map((edu, idx) => (
-                          <div key={idx} className="flex items-start gap-3">
-                            <div className="w-2 h-2 rounded-full bg-indigo-600 mt-2" />
-                            <div>
-                              <div className="font-semibold text-gray-900">
-                                {edu.degree}
-                              </div>
-                              <div className="text-sm text-gray-600">
-                                {edu.institution} • {edu.year}
-                              </div>
-                            </div>
-                          </div>
+                        {tutor.education.map((degree: string) => (
+                          <span
+                            key={degree}
+                            className="px-3 py-1.5 mx-2 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-full"
+                          >
+                            {degree}
+                          </span>
                         ))}
                       </div>
                     </div>
-
-                    <div>
-                      <h3 className="font-bold text-lg mb-3 text-gray-900">
-                        Teaching Style
-                      </h3>
-                      <p className="text-gray-700">{tutor.teachingStyle}</p>
-                    </div>
-
                     <div>
                       <h3 className="font-bold text-lg mb-3 text-gray-900">
                         Languages
                       </h3>
                       <div className="flex gap-2">
-                        {tutor.languages.map((lang) => (
+                        {tutor.language.map((lang: string) => (
                           <span
                             key={lang}
                             className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium"
@@ -315,7 +280,7 @@ export default function TutorProfile() {
 
                 {activeTab === "reviews" && (
                   <div className="space-y-6 animate-slide-in">
-                    {reviews.map((review, idx) => (
+                    {/* {reviews.map((review, idx) => (
                       <div
                         key={review.id}
                         className="p-6 bg-gray-50 rounded-2xl animate-fade-in"
@@ -356,38 +321,8 @@ export default function TutorProfile() {
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                )}
-
-                {activeTab === "availability" && (
-                  <div className="space-y-4 animate-slide-in">
-                    {tutor.availability.map((day, idx) => (
-                      <div
-                        key={day.day}
-                        className="animate-fade-in"
-                        style={{ animationDelay: `${idx * 0.1}s`, opacity: 0 }}
-                      >
-                        <div className="font-semibold text-gray-900 mb-3">
-                          {day.day}
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                          {/* {day.slots.map((slot) => (
-                            <button
-                              key={slot}
-                              onClick={() => setSelectedTime(slot)}
-                              className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                                selectedTime === slot
-                                  ? "bg-indigo-600 text-white shadow-lg"
-                                  : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                              }`}
-                            >
-                              {slot}
-                            </button>
-                          ))} */}
-                        </div>
-                      </div>
-                    ))}
+                    ))} */}
+                    from review table
                   </div>
                 )}
               </div>
@@ -402,61 +337,82 @@ export default function TutorProfile() {
               </h3>
 
               <div className="space-y-6">
-                <div>
-                  <label className="block text-sm font-semibold text-gray-700 mb-3">
-                    Select Duration
-                  </label>
-                  <div className="space-y-2">
-                    {[30, 60, 90].map((duration) => (
-                      <button
-                        key={duration}
-                        className="w-full p-4 border-2 border-gray-200 rounded-xl hover:border-indigo-600 hover:bg-indigo-50 transition-all text-left"
-                      >
-                        <div className="flex items-center justify-between">
-                          <span className="font-semibold text-gray-900">
-                            {duration} minutes
-                          </span>
-                          <span className="text-indigo-600 font-bold">
-                            ${((tutor.hourlyRate * duration) / 60).toFixed(0)}
-                          </span>
+                <div className="space-y-3">
+                  {availability.map((slot) => (
+                    <button
+                      key={slot.id}
+                      onClick={() => setSelectedDate(slot)}
+                      className={`w-full p-5 rounded-2xl border-2 transition-all duration-300 transform hover:scale-102 ${
+                        selectedDate?.id === slot.id
+                          ? "bg-gradient-to-r from-indigo-600 to-purple-600 border-indigo-600 shadow-lg shadow-indigo-300 dark:shadow-indigo-900/50"
+                          : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-md"
+                      }`}
+                    >
+                      <div className="flex flex-col items-center gap-2">
+                        {/* Date */}
+                        <div
+                          className={`text-sm font-medium ${
+                            selectedDate?.id === slot.id
+                              ? "text-indigo-100"
+                              : "text-gray-500 dark:text-gray-400"
+                          }`}
+                        >
+                          {new Date(slot.start_time).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "numeric",
+                              day: "numeric",
+                              year: "numeric",
+                            },
+                          )}
                         </div>
-                      </button>
-                    ))}
-                  </div>
-                </div>
 
-                <div className="border-t border-gray-200 pt-6">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-600">Session fee</span>
-                    <span className="font-semibold text-gray-900">
-                      ${tutor.hourlyRate}
-                    </span>
-                  </div>
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-gray-600">Platform fee</span>
-                    <span className="font-semibold text-gray-900">$5</span>
-                  </div>
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-200">
-                    <span className="font-bold text-gray-900">Total</span>
-                    <span className="font-bold text-2xl text-indigo-600">
-                      ${tutor.hourlyRate + 5}
-                    </span>
-                  </div>
+                        {/* Time */}
+                        <div
+                          className={`text-lg font-bold ${
+                            selectedDate?.id === slot.id
+                              ? "text-white"
+                              : "text-gray-900 dark:text-white"
+                          }`}
+                        >
+                          {new Date(slot.start_time).toLocaleTimeString(
+                            "en-US",
+                            {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                            },
+                          )}
+                          {" - "}
+                          {new Date(slot.end_time).toLocaleTimeString("en-US", {
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })}
+                        </div>
+
+                        {/* Checkmark */}
+                        {selectedDate?.id === slot.id && (
+                          <div className="absolute top-3 right-3 w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                            <svg
+                              className="w-4 h-4 text-indigo-600"
+                              fill="currentColor"
+                              viewBox="0 0 20 20"
+                            >
+                              <path
+                                fillRule="evenodd"
+                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                clipRule="evenodd"
+                              />
+                            </svg>
+                          </div>
+                        )}
+                      </div>
+                    </button>
+                  ))}
                 </div>
 
                 <button className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
                   Book Now
                 </button>
-
-                <button className="w-full py-4 border-2 border-gray-300 text-gray-700 rounded-xl font-semibold hover:bg-gray-50 transition-all">
-                  Send Message
-                </button>
-
-                <div className="pt-4 border-t border-gray-200 text-center">
-                  <p className="text-sm text-gray-500">
-                    💬 Average response time: {tutor.responseTime}
-                  </p>
-                </div>
               </div>
             </div>
           </div>

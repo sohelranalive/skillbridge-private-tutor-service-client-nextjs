@@ -31,8 +31,6 @@ export default async function Home() {
   const studentReview = await studentService.getReview();
   const reviews = studentReview.data?.data.slice(0, 3) || [];
 
-  console.log(reviews);
-
   return (
     <div className="landing-page min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-rose-50">
       <div className="landing-page min-h-screen">

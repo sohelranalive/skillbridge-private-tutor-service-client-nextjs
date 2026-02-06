@@ -1,107 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
 
 export default function TestimonialPage({ reviews }: any) {
-  //   const [activeTestimonial, setActiveTestimonial] = useState(0);
-
-  const [currentIndex, setCurrentIndex] = useState(0);
-
-  // Sample testimonials data - replace with your API data later
-  const testimonials = [
-    {
-      id: 1,
-      name: "Sarah Johnson",
-      role: "Computer Science Student",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-      rating: 5,
-      text: "SkillBridge transformed my understanding of calculus. My tutor was patient, knowledgeable, and made complex concepts easy to grasp. I went from struggling with derivatives to acing my finals!",
-      subject: "Mathematics",
-      sessionsCompleted: 24,
-    },
-    {
-      id: 2,
-      name: "Michael Chen",
-      role: "High School Senior",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
-      rating: 5,
-      text: "Learning Spanish has never been this fun! My tutor incorporates real-world conversations and cultural insights. I'm now confident speaking with native speakers.",
-      subject: "Spanish",
-      sessionsCompleted: 36,
-    },
-    {
-      id: 3,
-      name: "Emily Rodriguez",
-      role: "College Freshman",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
-      rating: 5,
-      text: "The chemistry tutor I found here is amazing! They explain everything with practical examples and make sure I understand before moving forward. My grades improved significantly.",
-      subject: "Chemistry",
-      sessionsCompleted: 18,
-    },
-    {
-      id: 4,
-      name: "David Kim",
-      role: "Career Switcher",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
-      rating: 5,
-      text: "Switching to web development seemed impossible until I found my coding tutor on SkillBridge. Now I'm building full-stack applications and landed my dream job!",
-      subject: "Web Development",
-      sessionsCompleted: 42,
-    },
-    {
-      id: 5,
-      name: "Priya Patel",
-      role: "Marketing Professional",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Priya",
-      rating: 5,
-      text: "Business Analytics was always intimidating, but my tutor made it accessible and practical. I now use data to drive decisions in my marketing campaigns.",
-      subject: "Business Analytics",
-      sessionsCompleted: 20,
-    },
-    {
-      id: 6,
-      name: "James Wilson",
-      role: "Music Enthusiast",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
-      rating: 5,
-      text: "My piano tutor is incredibly talented and patient. I've learned more in 3 months than I did in years of trying to teach myself. Highly recommend!",
-      subject: "Piano",
-      sessionsCompleted: 28,
-    },
-  ];
-
-  //   // Auto-rotate carousel every 5 seconds
-  //   useEffect(() => {
-  //     const interval = setInterval(() => {
-  //       setCurrentIndex((prevIndex) => (prevIndex + 1) % testimonials.length);
-  //     }, 5000);
-
-  //     return () => clearInterval(interval);
-  //   }, []);
-
-  //   // Get 3 testimonials to display (current + next 2, with wrap-around)
-  const getVisibleTestimonials = () => {
-    const visible = [];
-    for (let i = 0; i < 3; i++) {
-      const index = (currentIndex + i) % testimonials.length;
-      visible.push(testimonials[index]);
-    }
-    return visible;
-  };
-
-  const visibleTestimonials = getVisibleTestimonials();
-
   return (
     <div className="relative max-w-7xl mx-auto px-6 my-12">
       {/* Section Header */}
       <div className="text-center mb-16 animate-slide-up">
-        {/* <div className="inline-block px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-4">
-            <span className="text-orange-600 dark:text-orange-400 font-semibold text-sm">
-              STUDENT SUCCESS STORIES
-            </span>
-          </div> */}
         <h2
           className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
           style={{ fontFamily: "Fraunces, serif" }}
@@ -114,7 +19,7 @@ export default function TestimonialPage({ reviews }: any) {
         </p>
       </div>
 
-      {/* Stats Bar */}
+      {/* Stats Bar, hard coated now, i will update it inshaallah */}
       <div
         className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-16 animate-slide-up"
         style={{ animationDelay: "0.1s", opacity: 0 }}
@@ -205,22 +110,12 @@ export default function TestimonialPage({ reviews }: any) {
                   </p>
                 </div>
               </div>
-
-              {/* Subject Badge */}
-              {/* <div className="mt-4 flex items-center justify-between">
-                <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-xs font-semibold">
-                  {testimonial.subject}
-                </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {testimonial.sessionsCompleted} sessions
-                </span>
-              </div> */}
             </div>
           ))}
         </div>
       </div>
 
-      {/* CTA Button */}
+      {/* Button */}
       <div
         className="text-center mt-12 animate-slide-up"
         style={{ animationDelay: "0.4s", opacity: 0 }}

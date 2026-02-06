@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect } from "react";
 
 export type CommonNavbarUser = {
   isSignedIn: boolean;
@@ -18,8 +19,6 @@ export default function CommonNavbarClient({
   brand = "SkillBridge",
   user,
 }: Props) {
-  console.log("Print inside navbar: ", user);
-
   return (
     <header className="w-full bg-transparent border-b border-orange-100/60">
       <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">

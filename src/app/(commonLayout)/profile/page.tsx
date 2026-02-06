@@ -1,5 +1,9 @@
 import UserProfile from "@/components/home-layout/UserProfile";
+import { userService } from "@/service/user.service";
 
-export default function ProfilePage() {
-  return <UserProfile />;
+export default async function ProfilePage() {
+  const isUserSignedIn = await userService.getSession();
+  const user = isUserSignedIn?.data?.user;
+
+  return <UserProfile user={user} />;
 }

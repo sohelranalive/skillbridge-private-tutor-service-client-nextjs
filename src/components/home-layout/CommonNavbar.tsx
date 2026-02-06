@@ -4,7 +4,7 @@ import { userService } from "@/service/user.service";
 
 export default async function CommonNavbar() {
   const isUserSignedIn = await userService.getSession();
-  const userInfo = isUserSignedIn.data.user;
+  const userInfo = isUserSignedIn?.data?.user;
   const user = userInfo
     ? {
         isSignedIn: true,

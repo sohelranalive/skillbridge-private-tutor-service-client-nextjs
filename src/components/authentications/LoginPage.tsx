@@ -45,7 +45,7 @@ export default function LoginPage() {
           return;
         }
         toast.success("User sign in successful", { id: toastId });
-        router.push("/");
+        window.location.href = "/";
       } catch (error) {
         toast.error("Something went wrong, please try again", { id: toastId });
       }

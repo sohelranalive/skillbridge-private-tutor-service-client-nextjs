@@ -344,7 +344,7 @@ export default function TutorProfile({ tutor }: any) {
                       onClick={() => setSelectedDate(slot)}
                       className={`w-full p-5 rounded-2xl border-2 transition-all duration-300 transform hover:scale-102 ${
                         selectedDate?.id === slot.id
-                          ? "bg-gradient-to-r from-indigo-600 to-purple-600 border-indigo-600 shadow-lg shadow-indigo-300 dark:shadow-indigo-900/50"
+                          ? "bg-linear-to-r from-indigo-600 to-purple-600 border-indigo-600 shadow-lg shadow-indigo-300 dark:shadow-indigo-900/50"
                           : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-md"
                       }`}
                     >

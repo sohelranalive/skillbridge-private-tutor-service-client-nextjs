@@ -10,7 +10,7 @@ import Link from "next/link";
 
 export default async function Home() {
   const isUserSignedIn = await userService.getSession();
-  const user = isUserSignedIn.data.user;
+  const user = isUserSignedIn?.data?.user;
 
   const featuredTutors = await tutorService.getTutors(
     {

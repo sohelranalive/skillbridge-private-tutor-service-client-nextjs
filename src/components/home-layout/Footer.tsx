@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Footer() {
   return (
     <section className="max-w-7xl mx-auto px-6 py-20">
-      <div className="relative bg-gradient-to-br from-orange-500 via-rose-600 to-pink-600 rounded-3xl p-12 md:p-16 overflow-hidden">
+      <div className="relative bg-linear-to-br from-orange-500 via-rose-600 to-pink-600 rounded-3xl p-12 md:p-16 overflow-hidden">
         {/* Decorative Background Elements */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-10 left-10 w-40 h-40 border-4 border-white rounded-full animate-float" />

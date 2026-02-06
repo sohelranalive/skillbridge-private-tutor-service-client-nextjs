@@ -27,7 +27,7 @@ export default function UserProfile({ user }: any) {
     const { data, error } = await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          window.location.href = "/login";
+          window.location.href = "/";
         },
       },
     });

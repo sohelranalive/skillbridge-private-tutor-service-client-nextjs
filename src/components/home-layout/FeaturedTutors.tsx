@@ -1,90 +1,8 @@
-import { getTutors } from "@/actions/tutor.actions";
-import { tutorService } from "@/service/tutor.service";
-import { TutorProfile } from "@/types";
+"use client";
+
 import Link from "next/link";
 
-// interface FeaturedTutorsProps {
-//   tutors: TutorProfile;
-// }
-
 export default function FeaturedTutors({ tutors }: any) {
-  // const { data } = await tutorService.getTutors(
-  //   {
-  //     isFeatured: false,
-  //     search: "",
-  //     subject: "",
-  //     ratings: 0,
-  //     price: 0,
-  //     category: "",
-  //   },
-  //   {
-  //     cache: "no-store",
-  //   },
-  // );
-
-  //   const data = getTutors(
-  //     {
-  //       isFeatured: false,
-  //       search: "",
-  //       subject: "",
-  //       ratings: 0,
-  //       price: 0,
-  //       category: "",
-  //     },
-  //     {
-  //       cache: "no-store",
-  //     },
-  //   );
-
-  // console.log("Inside Featured Tutors:", tutors);
-
-  // const featuredTutors = [
-  //   {
-  //     id: 1,
-  //     name: "Dr. Sarah Chen",
-  //     subject: "Advanced Mathematics",
-  //     rating: 4.9,
-  //     reviews: 127,
-  //     price: 45,
-  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-  //     sessions: 340,
-  //     expertise: ["Calculus", "Linear Algebra", "Statistics"],
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "Marcus Johnson",
-  //     subject: "Computer Science",
-  //     rating: 4.8,
-  //     reviews: 89,
-  //     price: 50,
-  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Marcus",
-  //     sessions: 215,
-  //     expertise: ["Python", "Web Dev", "Algorithms"],
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "Elena Rodriguez",
-  //     subject: "Spanish Literature",
-  //     rating: 5.0,
-  //     reviews: 156,
-  //     price: 40,
-  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=Elena",
-  //     sessions: 428,
-  //     expertise: ["Conversation", "Grammar", "Literature"],
-  //   },
-  //   {
-  //     id: 4,
-  //     name: "Dr. James Wilson",
-  //     subject: "Physics",
-  //     rating: 4.7,
-  //     reviews: 94,
-  //     price: 48,
-  //     image: "https://api.dicebear.com/7.x/avataaars/svg?seed=James",
-  //     sessions: 267,
-  //     expertise: ["Mechanics", "Quantum", "Thermodynamics"],
-  //   },
-  // ];
-
   return (
     <section className="max-w-7xl mx-auto px-6 py-20">
       <div className="flex items-end justify-between mb-12">
@@ -115,24 +33,25 @@ export default function FeaturedTutors({ tutors }: any) {
           >
             <div className="relative mb-4">
               <img
-                src={tutor.tutor?.image}
-                alt={tutor.tutor?.name}
+                src={tutor.user?.image}
+                alt={tutor.user?.name}
                 className="w-20 h-20 rounded-2xl border-2 border-orange-200"
               />
               <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white text-xs font-bold">
-                {tutor.ratings}★
+                {/* {tutor.ratings}★ */}
+                10 ★
               </div>
             </div>
 
             <h3 className="font-bold text-lg text-gray-900 mb-1">
-              {tutor.tutor?.name}
+              {tutor.user?.name}
             </h3>
             <p className="text-sm text-gray-600 mb-4">
               {tutor.category?.category_name}
             </p>
 
             <div className="flex flex-wrap gap-1.5 mb-4">
-              {tutor.subjects.map((subject: any) => (
+              {tutor.subjects?.map((subject: any) => (
                 <span
                   key={subject}
                   className="px-2.5 py-1 bg-orange-50 text-orange-700 text-xs font-medium rounded-lg"

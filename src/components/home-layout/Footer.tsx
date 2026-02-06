@@ -44,7 +44,7 @@ export default function Footer() {
                 Find expert tutors in any subject and achieve your learning
                 goals
               </p>
-              <Link href="/register?type=student">
+              <Link href="/register">
                 <button className="w-full px-6 py-3 bg-white text-orange-600 rounded-full font-bold hover:shadow-2xl transition-all transform hover:scale-105">
                   Find a Tutor
                 </button>
@@ -60,7 +60,7 @@ export default function Footer() {
               <p className="text-white/80 mb-6">
                 Share your knowledge, set your own schedule, and earn money
               </p>
-              <Link href="/register?type=tutor">
+              <Link href="/register">
                 <button className="w-full px-6 py-3 bg-white text-rose-600 rounded-full font-bold hover:shadow-2xl transition-all transform hover:scale-105">
                   Become a Tutor
                 </button>

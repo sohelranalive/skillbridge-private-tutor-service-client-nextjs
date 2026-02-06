@@ -9,32 +9,6 @@ export default function Banner() {
       />
 
       <div className="relative max-w-7xl mx-auto px-6 py-20">
-        {/* Navigation */}
-        {/* <nav className="flex items-center justify-between mb-20 animate-slide-up">
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
-                    SB
-                  </div>
-                  <span
-                    className="text-2xl font-bold bg-linear-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent"
-                    style={{ fontFamily: "Fraunces, serif" }}
-                  >
-                    SkillBridge
-                  </span>
-                </div>
-                <div className="flex items-center gap-6">
-                  <button className="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-                    Find Tutors
-                  </button>
-                  <button className="text-gray-700 hover:text-orange-600 transition-colors font-medium">
-                    Become a Tutor
-                  </button>
-                  <button className="px-5 py-2.5 bg-white border-2 border-gray-900 text-gray-900 rounded-full font-semibold hover:bg-gray-900 hover:text-white transition-all transform hover:scale-105">
-                    Sign In
-                  </button>
-                </div>
-              </nav> */}
-
         {/* Hero Content */}
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="space-y-8">
@@ -69,41 +43,7 @@ export default function Banner() {
               writing.
             </p>
 
-            {/* Search Bar */}
-            {/* <div className="relative animate-slide-up stagger-3">
-                    <div className="bg-white rounded-2xl shadow-2xl shadow-orange-200/50 p-3 border-2 border-gray-100">
-                      <div className="flex items-center gap-3">
-                        <div className="flex-1 flex items-center gap-3 px-4">
-                          <svg
-                            className="w-5 h-5 text-gray-400"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth={2}
-                              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                            />
-                          </svg>
-                          <input
-                            type="text"
-                            placeholder="Search for tutors, subjects, or skills..."
-                            value={searchQuery}
-                            onChange={(e) => setSearchQuery(e.target.value)}
-                            className="flex-1 outline-none text-gray-700 placeholder-gray-400"
-                          />
-                        </div>
-                        <button className="px-8 py-3 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-orange-300 transition-all transform hover:scale-105">
-                          Search
-                        </button>
-                      </div>
-                    </div>
-                  </div> */}
-            {/* <SearchBar /> */}
-
-            {/* Stats */}
+            {/* Stats hard coated, I will update it later, inshaallah */}
             <div className="flex items-center gap-8 animate-slide-up stagger-4">
               <div>
                 <div className="text-3xl font-bold text-gray-900">2,500+</div>

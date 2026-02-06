@@ -15,6 +15,23 @@ export async function proxy(request: NextRequest) {
     userRole = data.user.role;
   }
 
+  if (pathname === "/login" || pathname === "/register") {
+    if (isAuthenticated) {
+      if (userRole === Roles.admin) {
+        return NextResponse.redirect(new URL("/admin-dashboard", request.url));
+      }
+      if (userRole === Roles.student) {
+        return NextResponse.redirect(
+          new URL("/student-dashboard", request.url),
+        );
+      }
+      if (userRole === Roles.tutor) {
+        return NextResponse.redirect(new URL("/tutor-dashboard", request.url));
+      }
+    }
+    return NextResponse.next();
+  }
+
   if (!isAuthenticated) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
@@ -47,6 +64,8 @@ export async function proxy(request: NextRequest) {
 }
 export const config = {
   matcher: [
+    "/login",
+    "/register",
     "/profile",
     "/admin-dashboard",
     "/admin-dashboard/:path*",

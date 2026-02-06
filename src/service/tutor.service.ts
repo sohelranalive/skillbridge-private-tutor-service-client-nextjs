@@ -1,6 +1,6 @@
 import { env } from "@/env";
 
-const APU_URL = process.env.API_URL;
+const API_URL = env.API_URL;
 
 interface getTutorParams {
   isFeatured?: boolean;
@@ -17,11 +17,9 @@ interface serviceOption {
 }
 
 export const tutorService = {
-  getTutors: async function (params?: getTutorParams, options?: serviceOption) {
+  getTutor: async function (params?: getTutorParams, options?: serviceOption) {
     try {
-      const url = new URL(`${APU_URL}/api/v1/tutor/all-tutors`);
-
-      // console.log("first ", params);
+      const url = new URL(`${API_URL}/api/v1/tutor/all-tutor`);
 
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
@@ -40,19 +38,20 @@ export const tutorService = {
       if (options?.revalidate) {
         config.next = { revalidate: options.revalidate };
       }
-
-      // console.log("second", url);
-
       const res = await fetch(url.toString(), config);
-
-      // console.log(res);
 
       const data = await res.json();
 
-      // example
-      //   if(data.success){
-      //     return
-      //   }
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+
+  getCategory: async function () {
+    try {
+      const res = await fetch(`${API_URL}/api/v1/admin/all-category`);
+      const data = await res.json();
 
       return { data: data, error: null };
     } catch (error) {
@@ -63,21 +62,10 @@ export const tutorService = {
   getTutorById: async function (params?: string) {
     try {
       const res = await fetch(
-        `${APU_URL}/api/v1/tutor/tutor-profile/${params}`,
+        `${API_URL}/api/v1/tutor/tutor-profile/${params}`,
       );
       const data = await res.json();
       return { data: data.data, error: null };
-    } catch (error) {
-      return { data: null, error: { message: "Something went wrong" } };
-    }
-  },
-
-  getCategory: async function () {
-    try {
-      const res = await fetch(`${APU_URL}/api/v1/user/all-category`);
-      const data = await res.json();
-
-      return { data: data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong" } };
     }

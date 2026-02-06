@@ -1,48 +1,21 @@
 "use client";
 
-import { Category } from "@/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-// interface CategoryProps {
-//   categories: Category;
-//   map: any;
-//   idx: any;
-// }
-
-//{ categories }: any
-
 export default function TeachingCategory({ categories }: any) {
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null); // Start with null instead of "all"
-
-  // When you receive categories from props, set the first one as selected
-
-  // const categories = [
-  //   { id: "all", name: "All Subjects", count: "500+" },
-  //   { id: "math", name: "Mathematics", count: "120" },
-  //   { id: "science", name: "Science", count: "95" },
-  //   { id: "languages", name: "Languages", count: "150" },
-  //   { id: "arts", name: "Arts & Design", count: "80" },
-  //   { id: "tech", name: "Technology", count: "110" },
-  //   { id: "business", name: "Business", count: "75" },
-  //   { id: "music", name: "Music", count: "60" },
-  // ];
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
 
   useEffect(() => {
     if (categories && categories.length > 0 && selectedCategory === null) {
-      setSelectedCategory(categories[0].category_id); // Auto-select first category
+      setSelectedCategory(categories[0].category_id);
     }
   }, [categories, selectedCategory]);
 
   return (
     <section className="max-w-7xl mx-auto px-6 py-20">
-      {/* Section Header */}
+      {/* Header Section */}
       <div className="text-center mb-12 animate-slide-up">
-        {/* <div className="inline-block px-4 py-2 bg-orange-100 dark:bg-orange-900/30 rounded-full mb-4">
-          <span className="text-orange-600 dark:text-orange-400 font-semibold text-sm">
-            EXPLORE CATEGORIES
-          </span>
-        </div> */}
         <h2
           className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
           style={{ fontFamily: "Fraunces, serif" }}
@@ -67,7 +40,6 @@ export default function TeachingCategory({ categories }: any) {
             }`}
             style={{ animationDelay: `${idx * 0.05}s`, opacity: 0 }}
           >
-            {/* Decorative Background Pattern */}
             <div
               className={`absolute inset-0 opacity-10 ${
                 selectedCategory === category.category_id

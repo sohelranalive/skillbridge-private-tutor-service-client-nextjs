@@ -2,12 +2,13 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useEffect } from "react";
+import { Roles } from "@/constants/roles";
 
 export type CommonNavbarUser = {
   isSignedIn: boolean;
   name?: string;
   avatarUrl?: string;
+  role?: string;
 };
 
 type Props = {
@@ -19,10 +20,25 @@ export default function CommonNavbarClient({
   brand = "SkillBridge",
   user,
 }: Props) {
+  let dashboardUrl = "";
+
+  if (user.role === Roles.admin) {
+    dashboardUrl = "/admin-dashboard";
+  }
+
+  if (user.role === Roles.student) {
+    dashboardUrl = "/student-dashboard";
+  }
+
+  if (user.role === Roles.tutor) {
+    dashboardUrl = "/tutor-dashboard";
+  }
+
   return (
     <header className="w-full bg-transparent border-b border-orange-100/60">
       <nav className="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
         {/* Logo side */}
+
         <Link href="/" className="flex items-center gap-3">
           <div className="w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white font-bold text-xl transform -rotate-6">
             SB
@@ -36,6 +52,7 @@ export default function CommonNavbarClient({
         </Link>
 
         {/* Menu Side */}
+
         <div className="flex items-center gap-6">
           <Link
             href="/tutors"
@@ -63,7 +80,7 @@ export default function CommonNavbarClient({
           ) : (
             <>
               <Link
-                href="/"
+                href={dashboardUrl}
                 className="text-gray-700 hover:text-orange-600 transition-colors font-medium"
               >
                 My Dashboard

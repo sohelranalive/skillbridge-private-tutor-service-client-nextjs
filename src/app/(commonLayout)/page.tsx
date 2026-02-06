@@ -1,15 +1,14 @@
 import Banner from "@/components/home-layout/Banner";
 import FeaturedTutors from "@/components/home-layout/FeaturedTutors";
 import Footer from "@/components/home-layout/Footer";
-import SearchBar from "@/components/home-layout/SearchBar";
 import TeachingCategory from "@/components/home-layout/TeachingCategory";
 import TestimonialPage from "@/components/home-layout/Testimonial";
+import { studentService } from "@/service/student.service";
 import { tutorService } from "@/service/tutor.service";
-import { userService } from "@/service/user.service";
-import Link from "next/link";
 
 export default async function Home() {
-  const featuredTutors = await tutorService.getTutors(
+  // Getting featured tutors for landing page
+  const featuredTutors = await tutorService.getTutor(
     {
       isFeatured: true,
       search: "",
@@ -22,25 +21,30 @@ export default async function Home() {
       cache: "no-store",
     },
   );
+  const tutors = featuredTutors.data?.data.slice(0, 4) || [];
 
-  const tutors = featuredTutors.data?.data || [];
-
+  // Getting category for landing page
   const teachingCategory = await tutorService.getCategory();
-
   const categories = teachingCategory.data?.data || [];
+
+  // Getting review for landing page
+  const studentReview = await studentService.getReview();
+  const reviews = studentReview.data?.data.slice(0, 3) || [];
+
+  console.log(reviews);
 
   return (
     <div className="landing-page min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-rose-50">
       <div className="landing-page min-h-screen">
-        {/* Banner Section */}
+        {/* Banner */}
         <Banner />
-        {/* All Categories*/}
+        {/* Categories */}
         <TeachingCategory categories={categories} />
-        {/* Featured Tutors */}
+        {/* Tutors */}
         <FeaturedTutors tutors={tutors} />
         {/* Testimonial */}
-        <TestimonialPage />
-        {/* CTA Section */}
+        <TestimonialPage reviews={reviews} />
+        {/* Footer */}
         <Footer />
       </div>
     </div>

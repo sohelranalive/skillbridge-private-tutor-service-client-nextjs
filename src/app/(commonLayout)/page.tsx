@@ -11,17 +11,12 @@ export default async function Home() {
   const featuredTutors = await tutorService.getTutor(
     {
       isFeatured: true,
-      search: "",
-      subject: "",
-      ratings: 0,
-      price: 0,
-      category: "",
     },
     {
       cache: "no-store",
     },
   );
-  const tutors = featuredTutors.data?.data.slice(0, 4) || [];
+  const tutors = featuredTutors.data?.data.data.slice(0, 4) || [];
 
   // Getting category for landing page
   const teachingCategory = await tutorService.getCategory();

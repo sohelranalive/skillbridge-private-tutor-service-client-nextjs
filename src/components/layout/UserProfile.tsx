@@ -6,8 +6,6 @@ import { use } from "react";
 import { toast } from "sonner";
 
 export default function UserProfile({ user }: any) {
-  // console.log(user);
-
   const router = useRouter();
 
   // Sample user data - replace with your actual user data

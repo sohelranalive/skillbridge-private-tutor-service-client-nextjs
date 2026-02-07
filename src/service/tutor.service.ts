@@ -3,12 +3,16 @@ import { env } from "@/env";
 const API_URL = env.API_URL;
 
 interface getTutorParams {
-  isFeatured?: boolean;
-  search: string;
-  subject: string;
-  ratings: number;
-  price: number;
-  category: string;
+  search?: string;
+  isFeatured?: boolean | null;
+  price?: number;
+  category?: string;
+  ratings?: number;
+  page?: number;
+  limit?: number;
+  skip?: number;
+  sortBy?: string;
+  sortOrder?: string;
 }
 
 interface serviceOption {
@@ -23,7 +27,12 @@ export const tutorService = {
 
       if (params) {
         Object.entries(params).forEach(([key, value]) => {
-          if (value !== undefined && value !== null && value !== "") {
+          if (
+            value !== undefined &&
+            value !== null &&
+            value !== "" &&
+            value !== 0
+          ) {
             url.searchParams.append(key, value);
           }
         });

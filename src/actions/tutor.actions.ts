@@ -1,12 +1,16 @@
 "use server";
 
 interface getTutorParams {
-  isFeatured?: boolean;
-  search: string;
-  subject: string;
-  ratings: number;
-  price: number;
-  category: string;
+  search?: string;
+  isFeatured?: boolean | null;
+  price?: number;
+  category?: string;
+  ratings?: number;
+  page?: number;
+  limit?: number;
+  skip?: number;
+  sortBy?: string;
+  sortOrder?: string;
 }
 
 interface serviceOption {
@@ -20,5 +24,5 @@ export const getTutors = async (
   params?: getTutorParams,
   options?: serviceOption,
 ) => {
-  return await tutorService.getTutors(params, options);
+  return await tutorService.getTutor(params, options);
 };

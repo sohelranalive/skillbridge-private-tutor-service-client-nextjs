@@ -36,7 +36,6 @@ export default function LoginPage() {
       password: "",
     },
     onSubmit: async ({ value }) => {
-      // console.log("Inside Sign In");
       const toastId = toast.loading("Signing In");
       try {
         const { data, error } = await authClient.signIn.email(value);

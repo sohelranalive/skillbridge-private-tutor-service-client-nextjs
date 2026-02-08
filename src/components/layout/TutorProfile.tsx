@@ -1,84 +1,85 @@
 "use client";
 
+import {
+  createBookingAction,
+  getExistingBookingAction,
+} from "@/actions/student.actions";
+import { getSessionAction } from "@/actions/user.actions";
 import { Roles } from "@/constants/roles";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
+import Link from "next/link";
+import { AvailabilitySlot } from "@/types";
+import { studentService } from "@/service/student.service";
 
 export default function TutorProfile({ tutor }: any) {
+  const {
+    about,
+    availability,
+    category,
+    education,
+    isFeatured,
+    isVerified,
+    language,
+    price,
+    reviews,
+    subjects,
+    tutor_category,
+    tutor_id,
+    user,
+  } = tutor;
+
+  const avgRating =
+    reviews.reduce((sum: any, review: any) => sum + review.ratings, 0) /
+    tutor?.reviews.length;
+
   const [activeTab, setActiveTab] = useState("about");
 
-  const ratingsssss = 4.7;
-
-  const reviews = [
-    {
-      id: 1,
-      student: "Michael Anderson",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Michael",
-      rating: 5,
-      date: "2 weeks ago",
-      comment:
-        "Dr. Chen is an exceptional tutor! She helped me go from struggling with calculus to acing my final exam. Her explanations are crystal clear and she's incredibly patient.",
-    },
-    {
-      id: 2,
-      student: "Emily Rodriguez",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Emily",
-      rating: 5,
-      date: "1 month ago",
-      comment:
-        "Outstanding teacher. Made linear algebra actually enjoyable! Her real-world examples really helped concepts click.",
-    },
-    {
-      id: 3,
-      student: "David Kim",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
-      rating: 4,
-      date: "1 month ago",
-      comment:
-        "Great tutor with deep knowledge. Sometimes moves a bit fast, but always willing to slow down and re-explain when needed.",
-    },
-  ];
-
-  const stats = [
-    { label: "Total Sessions", value: tutor.totalSessions },
-    { label: "Response Time", value: tutor.responseTime },
-    { label: "Completion Rate", value: "98%" },
-    { label: "Repeat Students", value: "85%" },
-  ];
-
-  interface AvailabilitySlot {
-    id: string;
-    start_time: string;
-    end_time: string;
-  }
-
-  const availability: AvailabilitySlot[] = [
-    {
-      id: "550e8400-e29b-41d4-a716-446655440001",
-      start_time: "2024-02-10T09:00:00.000Z",
-      end_time: "2024-02-10T10:00:00.000Z",
-    },
-    {
-      id: "550e8400-e29b-41d4-a716-446655440002",
-      start_time: "2024-02-10T10:30:00.000Z",
-      end_time: "2024-02-10T11:30:00.000Z",
-    },
-    {
-      id: "550e8400-e29b-41d4-a716-446655440003",
-      start_time: "2024-02-11T13:00:00.000Z",
-      end_time: "2024-02-11T14:00:00.000Z",
-    },
-    {
-      id: "550e8400-e29b-41d4-a716-446655440004",
-      start_time: "2024-02-12T16:00:00.000Z",
-      end_time: "2024-02-12T17:00:00.000Z",
-    },
-  ];
-
-  // Fix state type
   const [selectedDate, setSelectedDate] = useState<AvailabilitySlot | null>(
     null,
   );
+
+  const router = useRouter();
+
+  const handleOnBooked = async () => {
+    const { data, error } = await getSessionAction();
+    if (!data) {
+      return router.push("/login");
+    }
+    if (!(data.user.role === Roles.student)) {
+      return toast.info("Only student is allowed to book sessions");
+    }
+
+    const isAlreadyBooked = await getExistingBookingAction({
+      studentId: data?.user?.id,
+      availabilityId: selectedDate?.id,
+    });
+
+    if (isAlreadyBooked.data.data) {
+      toast.info("You have already booked this session");
+      return router.push("/student-dashboard");
+    }
+
+    const bookingData = {
+      start_time: selectedDate?.start_time,
+      end_time: selectedDate?.end_time,
+      student_id: data?.user?.id,
+      tutor_id: tutor_id,
+      availability_id: selectedDate?.id,
+    };
+
+    const bookingCreation = await createBookingAction(bookingData);
+
+    if (bookingCreation.data.message === "Data creation successfully") {
+      toast.success("You have booked the session successfully");
+      return router.push("/student-dashboard");
+    }
+
+    toast.dismiss("Something went wrong");
+    return router.push("/");
+  };
+
   return (
     <div className="tutor-profile min-h-screen">
       {/* Header back to search button */}
@@ -102,9 +103,13 @@ export default function TutorProfile({ tutor }: any) {
               Back to Search
             </button>
           </Link>
-          <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
+          <button
+            // onClick={() => setOpenReviewModal(true)}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg
+             border border-gray-300 hover:text-indigo-600 transition-colors"
+          >
             <svg
-              className="w-6 h-6 text-gray-600"
+              className="w-5 h-5"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -113,9 +118,10 @@ export default function TutorProfile({ tutor }: any) {
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
-                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+                d="M11 5h2m-1-1v2m7.071 2.929a1 1 0 010 1.414l-8.486 8.486a2 2 0 01-.878.51l-3.182.795.795-3.182a2 2 0 01.51-.878l8.486-8.486a1 1 0 011.414 0z"
               />
             </svg>
+            <span className="text-sm font-medium">Write Review</span>
           </button>
         </div>
       </header>
@@ -128,11 +134,11 @@ export default function TutorProfile({ tutor }: any) {
               <div className="flex items-start gap-6">
                 <div className="relative">
                   <img
-                    src={tutor?.user?.image}
-                    alt={tutor?.user?.name}
+                    src={user?.image}
+                    alt={user?.name}
                     className="w-32 h-32 rounded-2xl border-4 border-indigo-100"
                   />
-                  {tutor.isVerified && (
+                  {isVerified && (
                     <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-linear-to-br from-indigo-600 to-purple-600 rounded-full flex items-center justify-center shadow-lg">
                       <svg
                         className="w-6 h-6 text-white"
@@ -153,15 +159,15 @@ export default function TutorProfile({ tutor }: any) {
                   <div className="flex items-start justify-between mb-3">
                     <div>
                       <h1 className="text-3xl font-bold text-gray-900 heading-font mb-1">
-                        {tutor.user.name}
+                        {user?.name}
                       </h1>
                       <p className="text-lg text-gray-600">
-                        {tutor.category.category_name}
+                        {category?.category_name}
                       </p>
                     </div>
                     <div className="text-right">
                       <div className="text-4xl font-bold text-indigo-600">
-                        ${tutor.price}
+                        ${price}
                       </div>
                       <div className="text-sm text-gray-500">per session</div>
                     </div>
@@ -172,7 +178,7 @@ export default function TutorProfile({ tutor }: any) {
                       {[...Array(5)].map((_, i) => (
                         <svg
                           key={i}
-                          className={`w-5 h-5 ${i < Math.floor(ratingsssss) ? "text-yellow-400" : "text-gray-300"}`}
+                          className={`w-5 h-5 ${i < Math.floor(avgRating) ? "text-yellow-400" : "text-gray-300"}`}
                           fill="currentColor"
                           viewBox="0 0 20 20"
                         >
@@ -180,12 +186,10 @@ export default function TutorProfile({ tutor }: any) {
                         </svg>
                       ))}
                     </div>
-
-                    <div className="flex">10 sessions completed</div>
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    {tutor.subjects.map((skill: string) => (
+                    {subjects?.map((skill: string) => (
                       <span
                         key={skill}
                         className="px-3 py-1.5 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-full"
@@ -229,7 +233,7 @@ export default function TutorProfile({ tutor }: any) {
                         About Me
                       </h3>
                       <p className="text-gray-700 leading-relaxed text-justify">
-                        {tutor.about}
+                        {about}
                       </p>
                     </div>
 
@@ -238,7 +242,7 @@ export default function TutorProfile({ tutor }: any) {
                         Education
                       </h3>
                       <div className="space-y-3">
-                        {tutor.education.map((degree: string) => (
+                        {education?.map((degree: string) => (
                           <span
                             key={degree}
                             className="px-3 py-1.5 mx-2 bg-indigo-50 text-indigo-700 text-sm font-medium rounded-full"
@@ -253,7 +257,7 @@ export default function TutorProfile({ tutor }: any) {
                         Languages
                       </h3>
                       <div className="flex gap-2">
-                        {tutor.language.map((lang: string) => (
+                        {language?.map((lang: string) => (
                           <span
                             key={lang}
                             className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium"
@@ -268,7 +272,7 @@ export default function TutorProfile({ tutor }: any) {
 
                 {activeTab === "reviews" && (
                   <div className="space-y-6 animate-slide-in">
-                    {/* {reviews.map((review, idx) => (
+                    {reviews?.map((review: any, idx: any) => (
                       <div
                         key={review.id}
                         className="p-6 bg-gray-50 rounded-2xl animate-fade-in"
@@ -276,25 +280,31 @@ export default function TutorProfile({ tutor }: any) {
                       >
                         <div className="flex items-start gap-4">
                           <img
-                            src={review.avatar}
-                            alt={review.student}
+                            src={review.student.image}
+                            alt={review.student.name}
                             className="w-12 h-12 rounded-full"
                           />
                           <div className="flex-1">
                             <div className="flex items-center justify-between mb-2">
                               <div>
                                 <div className="font-semibold text-gray-900">
-                                  {review.student}
+                                  {review.student.name}
                                 </div>
                                 <div className="text-sm text-gray-500">
-                                  {review.date}
+                                  {new Date(
+                                    review.createdAt,
+                                  ).toLocaleDateString("en-US", {
+                                    month: "numeric",
+                                    day: "numeric",
+                                    year: "numeric",
+                                  })}
                                 </div>
                               </div>
                               <div className="flex">
                                 {[...Array(5)].map((_, i) => (
                                   <svg
                                     key={i}
-                                    className={`w-4 h-4 ${i < review.rating ? "text-yellow-400" : "text-gray-300"}`}
+                                    className={`w-4 h-4 ${i < review.ratings ? "text-yellow-400" : "text-gray-300"}`}
                                     fill="currentColor"
                                     viewBox="0 0 20 20"
                                   >
@@ -304,13 +314,12 @@ export default function TutorProfile({ tutor }: any) {
                               </div>
                             </div>
                             <p className="text-gray-700 leading-relaxed">
-                              {review.comment}
+                              {review.reviewText}
                             </p>
                           </div>
                         </div>
                       </div>
-                    ))} */}
-                    from review table
+                    ))}
                   </div>
                 )}
               </div>
@@ -324,84 +333,98 @@ export default function TutorProfile({ tutor }: any) {
                 Book a Session
               </h3>
 
-              <div className="space-y-6">
-                <div className="space-y-3">
-                  {availability.map((slot) => (
-                    <button
-                      key={slot.id}
-                      onClick={() => setSelectedDate(slot)}
-                      className={`w-full p-5 rounded-2xl border-2 transition-all duration-300 transform hover:scale-102 ${
-                        selectedDate?.id === slot.id
-                          ? "bg-linear-to-r from-indigo-600 to-purple-600 border-indigo-600 shadow-lg shadow-indigo-300 dark:shadow-indigo-900/50"
-                          : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-md"
-                      }`}
-                    >
-                      <div className="flex flex-col items-center gap-2">
-                        {/* Date */}
-                        <div
-                          className={`text-sm font-medium ${
-                            selectedDate?.id === slot.id
-                              ? "text-indigo-100"
-                              : "text-gray-500 dark:text-gray-400"
-                          }`}
-                        >
-                          {new Date(slot.start_time).toLocaleDateString(
-                            "en-US",
-                            {
-                              month: "numeric",
-                              day: "numeric",
-                              year: "numeric",
-                            },
-                          )}
-                        </div>
-
-                        {/* Time */}
-                        <div
-                          className={`text-lg font-bold ${
-                            selectedDate?.id === slot.id
-                              ? "text-white"
-                              : "text-gray-900 dark:text-white"
-                          }`}
-                        >
-                          {new Date(slot.start_time).toLocaleTimeString(
-                            "en-US",
-                            {
-                              hour: "2-digit",
-                              minute: "2-digit",
-                            },
-                          )}
-                          {" - "}
-                          {new Date(slot.end_time).toLocaleTimeString("en-US", {
-                            hour: "2-digit",
-                            minute: "2-digit",
-                          })}
-                        </div>
-
-                        {/* Checkmark */}
-                        {selectedDate?.id === slot.id && (
-                          <div className="absolute top-3 right-3 w-6 h-6 bg-white rounded-full flex items-center justify-center">
-                            <svg
-                              className="w-4 h-4 text-indigo-600"
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
+              {!availability.length ? (
+                <>
+                  {" "}
+                  <h3>Tutor has no session currently</h3>
+                </>
+              ) : (
+                <div className="space-y-6">
+                  <div className="space-y-3">
+                    {availability?.map((slot: any) => (
+                      <button
+                        key={slot.id}
+                        onClick={() => setSelectedDate(slot)}
+                        className={`w-full p-5 rounded-2xl border-2 transition-all duration-300 transform hover:scale-102 ${
+                          selectedDate?.id === slot.id
+                            ? "bg-linear-to-r from-indigo-600 to-purple-600 border-indigo-600 shadow-lg shadow-indigo-300 dark:shadow-indigo-900/50"
+                            : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-md"
+                        }`}
+                      >
+                        <div className="flex flex-col items-center gap-2">
+                          {/* Date */}
+                          <div
+                            className={`text-sm font-medium ${
+                              selectedDate?.id === slot.id
+                                ? "text-indigo-100"
+                                : "text-gray-500 dark:text-gray-400"
+                            }`}
+                          >
+                            {new Date(slot.start_time).toLocaleDateString(
+                              "en-US",
+                              {
+                                month: "numeric",
+                                day: "numeric",
+                                year: "numeric",
+                              },
+                            )}
                           </div>
-                        )}
-                      </div>
-                    </button>
-                  ))}
-                </div>
 
-                <button className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105">
-                  Book Now
-                </button>
-              </div>
+                          {/* Time */}
+                          <div
+                            className={`text-lg font-bold ${
+                              selectedDate?.id === slot.id
+                                ? "text-white"
+                                : "text-gray-900 dark:text-white"
+                            }`}
+                          >
+                            {new Date(slot.start_time).toLocaleTimeString(
+                              "en-US",
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              },
+                            )}
+                            {" - "}
+                            {new Date(slot.end_time).toLocaleTimeString(
+                              "en-US",
+                              {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              },
+                            )}
+                          </div>
+
+                          {/* Checkmark */}
+                          {selectedDate?.id === slot.id && (
+                            <div className="absolute top-3 right-3 w-6 h-6 bg-white rounded-full flex items-center justify-center">
+                              <svg
+                                className="w-4 h-4 text-indigo-600"
+                                fill="currentColor"
+                                viewBox="0 0 20 20"
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+
+                  <button
+                    disabled={selectedDate === null}
+                    onClick={() => handleOnBooked()}
+                    className="w-full py-4 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-bold shadow-lg hover:shadow-xl transition-all transform hover:scale-105"
+                  >
+                    Book Now
+                  </button>
+                </div>
+              )}
             </div>
           </div>
         </div>

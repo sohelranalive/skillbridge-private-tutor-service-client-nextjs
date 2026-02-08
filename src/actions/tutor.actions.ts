@@ -20,9 +20,13 @@ interface serviceOption {
 
 import { tutorService } from "@/service/tutor.service";
 
-export const getTutors = async (
+export const getTutorAction = async (
   params?: getTutorParams,
   options?: serviceOption,
 ) => {
   return await tutorService.getTutor(params, options);
+};
+
+export const getTutorByUserIdAction = async (params: string) => {
+  return await tutorService.getTutorByUserId(params);
 };

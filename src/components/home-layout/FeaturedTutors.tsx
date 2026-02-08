@@ -38,8 +38,7 @@ export default function FeaturedTutors({ tutors }: any) {
                 className="w-20 h-20 rounded-2xl border-2 border-orange-200"
               />
               <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-linear-to-br from-orange-500 to-rose-600 rounded-xl flex items-center justify-center text-white text-xs font-bold">
-                {/* {tutor.ratings}★ */}
-                10 ★
+                {tutor.avgRating}★
               </div>
             </div>
 
@@ -64,8 +63,7 @@ export default function FeaturedTutors({ tutors }: any) {
             <div className="flex items-center justify-between pt-4 border-t border-gray-100">
               <div>
                 <div className="text-xs text-gray-500">
-                  {/* {tutor.reviews} reviews */}
-                  <h5>Reviewed By: {`5`} Students</h5>
+                  {tutor.reviewCount} reviews
                 </div>
               </div>
               <div className="text-right">

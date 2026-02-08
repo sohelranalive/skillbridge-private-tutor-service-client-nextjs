@@ -1,3 +1,5 @@
-export type { TutorProfile } from "./tutor.type";
 export type { User } from "./user.types";
 export type { UserRole } from "./role.type";
+export type { Booking } from "./booking.type";
+export type { AvailabilitySlot } from "./availability.type";
+export type { TutorProfile } from "./tutor.types";

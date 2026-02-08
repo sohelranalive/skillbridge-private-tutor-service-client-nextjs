@@ -26,6 +26,4 @@ export const userService = {
       return { data: null, error: { message: "Something Went Wrong" } };
     }
   },
-  // Other functions could be implemented
-  getRandom: async function () {},
 };

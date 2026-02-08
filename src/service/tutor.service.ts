@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
 
@@ -57,17 +58,6 @@ export const tutorService = {
     }
   },
 
-  getCategory: async function () {
-    try {
-      const res = await fetch(`${API_URL}/api/v1/admin/all-category`);
-      const data = await res.json();
-
-      return { data: data, error: null };
-    } catch (error) {
-      return { data: null, error: { message: "Something went wrong" } };
-    }
-  },
-
   getTutorById: async function (params?: string) {
     try {
       const res = await fetch(
@@ -75,6 +65,24 @@ export const tutorService = {
       );
       const data = await res.json();
       return { data: data.data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  getTutorByUserId: async function (params?: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/api/v1/tutor/user/${params}`, {
+        method: "GET",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      const data = await res.json();
+
+      return { data: data, error: null };
     } catch (error) {
       return { data: null, error: { message: "Something went wrong" } };
     }

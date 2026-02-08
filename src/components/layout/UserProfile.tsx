@@ -1,26 +1,37 @@
 "use client";
+
+import { getTutorByUserIdAction } from "@/actions/tutor.actions";
+import { getSessionAction } from "@/actions/user.actions";
+import { Roles } from "@/constants/roles";
 import { authClient } from "@/lib/auth-client";
+import { TutorProfile } from "@/types";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { use } from "react";
+import { use, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export default function UserProfile({ user }: any) {
   const router = useRouter();
+  const [isTutor, setIsTutor] = useState(false);
+  const [tutor, setTutor] = useState<TutorProfile>({});
 
-  // Sample user data - replace with your actual user data
-  // const user = {
-  //   name: "John Doe",
-  //   email: "john.doe@example.com",
-  //   avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
-  //   role: "Student", // or "Tutor" or "Admin"
-  //   joinedDate: "January 2024",
-  //   bio: "Passionate learner exploring new subjects and improving my skills.",
-  // };
+  useEffect(() => {
+    if (user.role !== Roles.tutor) {
+      return;
+    }
+    async function fetchUser() {
+      const result = await getTutorByUserIdAction(user?.id as string);
+      setTutor(result.data?.data);
+      setIsTutor(true);
+    }
+    fetchUser();
+  }, [user.role]);
 
+  console.log(tutor);
+  console.log(isTutor);
   const handleLogout = async () => {
     // Add your logout logic here
-    const toastId = toast.loading("Creating User");
+    const toastId = toast.loading("Logging Out");
 
     const { data, error } = await authClient.signOut({
       fetchOptions: {
@@ -73,6 +84,15 @@ export default function UserProfile({ user }: any) {
                   <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm font-semibold">
                     {user?.role}
                   </span>
+                  {!isTutor ? (
+                    <></>
+                  ) : (
+                    <span className="px-3 py-1 bg-blue-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm font-semibold">
+                      {tutor.isVerified
+                        ? "Happy Teaching"
+                        : "Complete your profile & start Teaching"}
+                    </span>
+                  )}
                 </div>
               </div>
 

@@ -3,6 +3,7 @@ import FeaturedTutors from "@/components/home-layout/FeaturedTutors";
 import Footer from "@/components/home-layout/Footer";
 import TeachingCategory from "@/components/home-layout/TeachingCategory";
 import TestimonialPage from "@/components/home-layout/Testimonial";
+import { adminService } from "@/service/admin.service";
 import { studentService } from "@/service/student.service";
 import { tutorService } from "@/service/tutor.service";
 
@@ -11,6 +12,7 @@ export default async function Home() {
   const featuredTutors = await tutorService.getTutor(
     {
       isFeatured: true,
+      ratings: 3,
     },
     {
       cache: "no-store",
@@ -19,7 +21,7 @@ export default async function Home() {
   const tutors = featuredTutors.data?.data.data.slice(0, 4) || [];
 
   // Getting category for landing page
-  const teachingCategory = await tutorService.getCategory();
+  const teachingCategory = await adminService.getCategory();
   const categories = teachingCategory.data?.data || [];
 
   // Getting review for landing page

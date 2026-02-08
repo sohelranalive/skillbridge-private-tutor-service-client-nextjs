@@ -20,10 +20,10 @@ export default function TeachingCategory({ categories }: any) {
           className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4"
           style={{ fontFamily: "Fraunces, serif" }}
         >
-          Find Your Perfect Subject
+          We have tutors of all fields
         </h2>
         <p className="text-gray-600 dark:text-gray-400 text-lg max-w-2xl mx-auto">
-          Browse through our curated categories and connect with expert tutors
+          Explore all out categories and connect with expert tutors
         </p>
       </div>
 
@@ -106,29 +106,6 @@ export default function TeachingCategory({ categories }: any) {
                   </svg>
                 </div>
               )}
-
-              {/* Hover Arrow */}
-              <div
-                className={`absolute bottom-2 right-2 transform transition-all duration-300 ${
-                  selectedCategory === category.category_id
-                    ? "opacity-100 translate-x-0"
-                    : "opacity-0 translate-x-2 group-hover:opacity-100 group-hover:translate-x-0"
-                }`}
-              >
-                <svg
-                  className={`w-5 h-5 ${selectedCategory === category.category_id ? "text-white" : "text-orange-600"}`}
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M13 7l5 5m0 0l-5 5m5-5H6"
-                  />
-                </svg>
-              </div>
             </div>
           </button>
         ))}

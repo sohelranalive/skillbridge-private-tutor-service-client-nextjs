@@ -103,7 +103,7 @@ export default function UserProfile({ user }: any) {
                     Edit Profile
                   </button>
                 </Link>
-                <Link href="/dashboard">
+                <Link href="/student-dashboard">
                   <button className="px-6 py-3 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-all">
                     Dashboard
                   </button>

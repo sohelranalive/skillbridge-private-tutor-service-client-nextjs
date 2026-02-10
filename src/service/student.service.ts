@@ -83,4 +83,25 @@ export const studentService = {
       return { data: null, error: { message: "Something went wrong" } };
     }
   },
+  getBookingByStudentId: async function (params: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(
+        `${API_URL}/api/v1/student/all-booking/${params}`,
+        {
+          method: "GET",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
+
+      const data = await res.json();
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
 };

@@ -1,17 +1,16 @@
 "use client";
 
 import { getTutorByUserIdAction } from "@/actions/tutor.actions";
-import { getSessionAction } from "@/actions/user.actions";
 import { Roles } from "@/constants/roles";
 import { authClient } from "@/lib/auth-client";
 import { TutorProfile } from "@/types";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import Link from "next/link";
+import EditUserProfileModal from "./modal/EditUserProfile";
+import EditTutorProfileModal from "./modal/EditTutorProfile";
 
 export default function UserProfile({ user }: any) {
-  const router = useRouter();
   const [isTutor, setIsTutor] = useState(false);
   const [tutor, setTutor] = useState<TutorProfile>({});
 
@@ -27,12 +26,10 @@ export default function UserProfile({ user }: any) {
     fetchUser();
   }, [user.role]);
 
-  console.log(tutor);
-  console.log(isTutor);
+  // console.log(tutor);
+  // console.log(isTutor);
   const handleLogout = async () => {
-    // Add your logout logic here
     const toastId = toast.loading("Logging Out");
-
     const { data, error } = await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
@@ -40,22 +37,11 @@ export default function UserProfile({ user }: any) {
         },
       },
     });
-
-    // try {
-    //   const { data, error } = await authClient.signUp.email(payload);
-    //   if (error) {
-    //     toast.error(error.message, { id: toastId });
-    //     return;
-    //   }
-    //   toast.success("User created successfully", { id: toastId });
-    //   router.push("/login?registered=true");
-    // } catch (error) {
-    //   toast.error("Something went wrong, please try again", { id: toastId });
-    // }
-
-    toast.success("User created successfully", { id: toastId });
-    router.push("/login");
   };
+
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+
+  const [isTutorEditModalOpen, setIsTutorEditModalOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-rose-50 dark:from-gray-900 dark:via-orange-950/20 dark:to-rose-950/20">
@@ -84,9 +70,7 @@ export default function UserProfile({ user }: any) {
                   <span className="px-3 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm font-semibold">
                     {user?.role}
                   </span>
-                  {!isTutor ? (
-                    <></>
-                  ) : (
+                  {isTutor && (
                     <span className="px-3 py-1 bg-blue-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm font-semibold">
                       {tutor.isVerified
                         ? "Happy Teaching"
@@ -98,11 +82,34 @@ export default function UserProfile({ user }: any) {
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3">
-                <Link href="/profile/edit">
-                  <button className="px-6 py-3 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105">
-                    Edit Profile
+                <button
+                  onClick={() => setIsEditModalOpen(true)}
+                  className="px-6 py-3 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105"
+                >
+                  Edit Profile
+                </button>
+
+                <EditUserProfileModal
+                  isOpenEditProfile={isEditModalOpen}
+                  onCloseEditProfile={() => setIsEditModalOpen(false)}
+                  user={user}
+                />
+
+                {isTutor && (
+                  <button
+                    onClick={() => setIsTutorEditModalOpen(true)}
+                    className="px-6 py-3 bg-linear-to-r from-orange-500 to-rose-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all transform hover:scale-105"
+                  >
+                    Update Tutor Profile
                   </button>
-                </Link>
+                )}
+
+                <EditTutorProfileModal
+                  isOpenEditTutor={isTutorEditModalOpen}
+                  onCloseEditTutor={() => setIsTutorEditModalOpen(false)}
+                  tutor={tutor}
+                />
+
                 <Link href="/student-dashboard">
                   <button className="px-6 py-3 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-all">
                     Dashboard
@@ -118,66 +125,36 @@ export default function UserProfile({ user }: any) {
             </div>
 
             {/* Profile Info Grid */}
-            <div className="grid md:grid-cols-2 gap-6">
-              {/* Basic Info */}
-              <div className="space-y-4">
-                <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  Basic Information
-                </h2>
+            <div className="space-y-4">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">
+                Basic Information
+              </h2>
 
-                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
-                  <label className="text-sm text-gray-500 dark:text-gray-400 block mb-1">
-                    Email Address
-                  </label>
-                  <p className="text-gray-900 dark:text-white font-medium">
-                    {user?.email}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
-                  <label className="text-sm text-gray-500 dark:text-gray-400 block mb-1">
-                    Phone
-                  </label>
-                  <p className="text-gray-900 dark:text-white font-medium">
-                    {user?.phone ? user.phone : "N/A"}
-                  </p>
-                </div>
-
-                <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
-                  <label className="text-sm text-gray-500 dark:text-gray-400 block mb-1">
-                    Member Since
-                  </label>
-                  <p className="text-gray-900 dark:text-white font-medium">
-                    {new Date(user?.createdAt).toLocaleDateString("en-GB")}
-                  </p>
-                </div>
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
+                <label className="text-sm text-gray-500 dark:text-gray-400 block mb-1">
+                  Email Address
+                </label>
+                <p className="text-gray-900 dark:text-white font-medium">
+                  {user?.email}
+                </p>
               </div>
 
-              {/* Bio */}
-              <div>
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 gap-4 mt-10">
-                  <div className="bg-linear-to-br from-orange-50 to-rose-50 dark:from-orange-900/20 dark:to-rose-900/20 rounded-xl p-4 border border-orange-200 dark:border-orange-800">
-                    <div className="text-2xl font-bold text-orange-600 dark:text-orange-400">
-                      24
-                    </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
-                      Sessions
-                    </div>
-                  </div>
-                  {user?.role == "TUTOR" ? (
-                    <div className="bg-linear-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl p-4 border border-purple-200 dark:border-purple-800">
-                      <div className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                        4.9★
-                      </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400">
-                        Rating
-                      </div>
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-                </div>
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
+                <label className="text-sm text-gray-500 dark:text-gray-400 block mb-1">
+                  Phone
+                </label>
+                <p className="text-gray-900 dark:text-white font-medium">
+                  {user?.phone ? user.phone : "N/A"}
+                </p>
+              </div>
+
+              <div className="bg-gray-50 dark:bg-gray-900 rounded-xl p-4">
+                <label className="text-sm text-gray-500 dark:text-gray-400 block mb-1">
+                  Member Since
+                </label>
+                <p className="text-gray-900 dark:text-white font-medium">
+                  {new Date(user?.createdAt).toLocaleDateString("en-GB")}
+                </p>
               </div>
             </div>
           </div>

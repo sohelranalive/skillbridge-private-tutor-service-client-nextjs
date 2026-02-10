@@ -3,7 +3,6 @@
 import { useForm } from "@tanstack/react-form";
 import { z } from "zod";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
 
@@ -14,8 +13,6 @@ const loginSchema = z.object({
 });
 
 export default function LoginPage() {
-  const router = useRouter();
-
   const handleGoogleLogIn = async () => {
     const data = await authClient.signIn.social({
       provider: "google",
@@ -44,7 +41,7 @@ export default function LoginPage() {
           return;
         }
         toast.success("User sign in successful", { id: toastId });
-        window.location.href = "/";
+        window.location.href = "/profile";
       } catch (error) {
         toast.error("Something went wrong, please try again", { id: toastId });
       }

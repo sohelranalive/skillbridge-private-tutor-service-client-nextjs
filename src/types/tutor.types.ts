@@ -1,12 +1,12 @@
 export type TutorProfile = {
-  tutor_id?: string;
-  user_id?: string;
-  tutor_category?: string;
-  subjects?: string[];
-  isFeatured?: boolean;
-  price?: number;
-  about?: string;
-  education?: string[];
-  isVerified?: boolean;
-  language?: string[];
+  tutor_id?: string | undefined;
+  user_id?: string | undefined;
+  tutor_category?: string | undefined;
+  subjects?: string | undefined;
+  isFeatured?: boolean | undefined;
+  price?: number | undefined;
+  about?: string | undefined;
+  education?: string | undefined;
+  isVerified?: boolean | undefined;
+  language?: string | undefined;
 };

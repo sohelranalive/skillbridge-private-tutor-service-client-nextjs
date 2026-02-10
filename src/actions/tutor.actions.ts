@@ -19,6 +19,7 @@ interface serviceOption {
 }
 
 import { tutorService } from "@/service/tutor.service";
+import { TutorProfile } from "@/types";
 
 export const getTutorAction = async (
   params?: getTutorParams,
@@ -29,4 +30,11 @@ export const getTutorAction = async (
 
 export const getTutorByUserIdAction = async (params: string) => {
   return await tutorService.getTutorByUserId(params);
+};
+
+export const updateTutorByIdAction = async (
+  params: string,
+  payload: TutorProfile,
+) => {
+  return await tutorService.updateTutorById(params, payload);
 };

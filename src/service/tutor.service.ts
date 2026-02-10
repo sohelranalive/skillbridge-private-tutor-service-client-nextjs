@@ -1,4 +1,5 @@
 import { env } from "@/env";
+import { TutorProfile } from "@/types";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -81,6 +82,34 @@ export const tutorService = {
       });
 
       const data = await res.json();
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  updateTutorById: async function (params: string, payload: TutorProfile) {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(
+        `${API_URL}/api/v1/tutor/tutor-profile/update/${params}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: cookieStore.toString(),
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+      const data = await res.json();
+
+      if (data.error) {
+        return {
+          data: null,
+          error: { message: data.error || "Post creation failed" },
+        };
+      }
 
       return { data: data, error: null };
     } catch (error) {

@@ -1,6 +1,5 @@
 import { studentService } from "@/service/student.service";
 import { userService } from "@/service/user.service";
-import Link from "next/link";
 
 export default async function StudentDashboardHome() {
   const isUserSignedIn = await userService.getSession();
@@ -9,8 +8,6 @@ export default async function StudentDashboardHome() {
   const allSessions = await studentService.getBookingByStudentId(user.id);
   const sessions = allSessions.data?.data;
 
-  // console.log(JSON.stringify(allSessions.data?.data, null, 2));
-
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString("en-US", {
@@ -18,6 +15,25 @@ export default async function StudentDashboardHome() {
       month: "short",
       day: "numeric",
     });
+  };
+
+  const getDuration = (a: any, b: any) => {
+    const start: any = new Date(a);
+    const end: any = new Date(b);
+
+    const diffMs = Math.abs(end - start);
+
+    const totalMinutes = Math.floor(diffMs / (1000 * 60));
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    return `${hours} Hours, ${minutes || 0} Minutes`;
+  };
+
+  const sessionStatus = (date: any) => {
+    const inputDate = new Date(date);
+    const now = new Date();
+    return inputDate < now ? "past" : "upcoming";
   };
 
   return (
@@ -51,8 +67,7 @@ export default async function StudentDashboardHome() {
                       : "bg-yellow-100 text-yellow-700"
                   }`}
                 >
-                  {/* {session.status} */}
-                  Upcoming
+                  {sessionStatus(session.start_time)}
                 </span>
               </div>
 
@@ -87,22 +102,20 @@ export default async function StudentDashboardHome() {
                       d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                     />
                   </svg>
-                  {/* {session.time} ({session.duration} min) */}
-                  60:00:00 MIN
+                  {getDuration(session.start_time, session.end_time)}
                 </div>
               </div>
 
               <div className="flex gap-3">
-                {session.meetingLink && (
-                  <button className="px-4 py-2 bg-linear-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
+                <button className="px-4 py-2 bg-linear-to-r from-violet-600 to-fuchsia-600 text-white rounded-lg font-semibold hover:shadow-lg transition-all text-sm">
+                  <a
+                    href="https://meet.google.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full h-full"
+                  >
                     Join Session
-                  </button>
-                )}
-                <button className="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg font-semibold hover:bg-gray-50 transition-all text-sm">
-                  Reschedule
-                </button>
-                <button className="px-4 py-2 border border-red-300 text-red-600 rounded-lg font-semibold hover:bg-red-50 transition-all text-sm">
-                  Cancel
+                  </a>
                 </button>
               </div>
             </div>

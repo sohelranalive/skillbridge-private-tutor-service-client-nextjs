@@ -1,5 +1,8 @@
+import LogoutButton from "@/components/authentications/LogoutButton";
+import { authClient } from "@/lib/auth-client";
 import { userService } from "@/service/user.service";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export default async function StudentDashboardLayout({
   children,
@@ -52,6 +55,13 @@ export default async function StudentDashboardLayout({
             My Reviews
           </Link>
           <Link
+            href="/tutors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
+          >
+            <span className="text-xl">🔍</span>
+            Find Tutor
+          </Link>
+          <Link
             href="/profile"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
           >
@@ -59,13 +69,8 @@ export default async function StudentDashboardLayout({
             My Profile
           </Link>
         </nav>
-
-        <div className="pt-6 border-t border-gray-200">
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl font-medium transition-all">
-            <span className="text-xl">⏻</span>
-            Logout
-          </button>
-        </div>
+        <LogoutButton />
+        {/*  */}
       </aside>
       <main className="ml-72 p-8">
         {/* Header */}

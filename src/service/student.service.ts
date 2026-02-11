@@ -1,5 +1,5 @@
 import { env } from "@/env";
-import { Booking } from "@/types";
+import { Booking, Reviews } from "@/types";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -98,6 +98,100 @@ export const studentService = {
       );
 
       const data = await res.json();
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  getStudentReviews: async function (params?: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(
+        `${API_URL}/api/v1/student/all-reviews/${params}`,
+        {
+          method: "GET",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
+
+      const data = await res.json();
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  deleteReview: async function (params?: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(
+        `${API_URL}/api/v1/student/delete-review/${params}`,
+        {
+          method: "DELETE",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
+
+      if (res.status === 204) {
+        return { data: "Deleted", error: null };
+      }
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  updateReview: async function (params: string, payload: Reviews) {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(
+        `${API_URL}/api/v1/student/update-review/${params}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Cookie: cookieStore.toString(),
+          },
+          body: JSON.stringify(payload),
+        },
+      );
+      const data = await res.json();
+      if (data.error) {
+        return {
+          data: null,
+          error: { message: data.error || "Update failed" },
+        };
+      }
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  writeReview: async function (payload: Booking) {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/api/v1/student/write-review`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        return {
+          data: null,
+          error: { message: data.error || "Review made failed" },
+        };
+      }
 
       return { data: data, error: null };
     } catch (error) {

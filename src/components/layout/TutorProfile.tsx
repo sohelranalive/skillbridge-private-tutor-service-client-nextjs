@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { AvailabilitySlot } from "@/types";
 import { studentService } from "@/service/student.service";
+import WriteReviewModal from "./modal/WriteTutorReview";
 
 export default function TutorProfile({ tutor }: any) {
   const {
@@ -35,6 +36,7 @@ export default function TutorProfile({ tutor }: any) {
     tutor?.reviews.length;
 
   const [activeTab, setActiveTab] = useState("about");
+  const [studentId, setStudentId] = useState("");
 
   const [selectedDate, setSelectedDate] = useState<AvailabilitySlot | null>(
     null,
@@ -80,51 +82,47 @@ export default function TutorProfile({ tutor }: any) {
     return router.push("/");
   };
 
+  const [openReviewModal, setOpenReviewModal] = useState(false);
+
+  const handleWriteReview = async () => {
+    const { data, error } = await getSessionAction();
+    if (!data) {
+      toast.info("Need to sign in to write review");
+      return router.push("/login");
+    }
+    if (!(data.user.role === Roles.student)) {
+      return toast.info("Only student is allowed to book sessions");
+    }
+    setStudentId(data?.user?.id);
+    return setOpenReviewModal(true);
+  };
+
   return (
     <div className="tutor-profile min-h-screen">
       {/* Header back to search button */}
-      <header className="bg-white border-b border-gray-200">
+      <header className="bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <Link href="/tutors">
-            <button className="flex items-center gap-2 text-gray-600 hover:text-indigo-600 transition-colors">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-              Back to Search
+            <button className="flex items-center gap-2 text-gray-600 dark:text-gray-400 hover:text-orange-600 dark:hover:text-orange-400 transition-colors">
+              ← Back to Search
             </button>
           </Link>
           <button
-            // onClick={() => setOpenReviewModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-lg
-             border border-gray-300 hover:text-indigo-600 transition-colors"
+            onClick={() => handleWriteReview()}
+            className="px-4 py-2 border-2 border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:border-orange-500 dark:hover:border-orange-500 hover:text-orange-600 dark:hover:text-orange-400 rounded-xl font-medium transition-all"
           >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M11 5h2m-1-1v2m7.071 2.929a1 1 0 010 1.414l-8.486 8.486a2 2 0 01-.878.51l-3.182.795.795-3.182a2 2 0 01.51-.878l8.486-8.486a1 1 0 011.414 0z"
-              />
-            </svg>
-            <span className="text-sm font-medium">Write Review</span>
+            Write Review
           </button>
         </div>
       </header>
+
+      <WriteReviewModal
+        isOpen={openReviewModal}
+        onClose={() => setOpenReviewModal(false)}
+        tutorId={tutor_id}
+        tutorName={user.name}
+        studentId={studentId}
+      />
 
       {/* Main Content starts from here*/}
       <div className="max-w-7xl mx-auto px-6 py-12">
@@ -352,6 +350,7 @@ export default function TutorProfile({ tutor }: any) {
                         }`}
                       >
                         <div className="flex flex-col items-center gap-2">
+                          <div>{slot.subject}</div>
                           {/* Date */}
                           <div
                             className={`text-sm font-medium ${

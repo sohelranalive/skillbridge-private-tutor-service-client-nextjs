@@ -1,43 +1,33 @@
 "use client";
 
-import { useState } from "react";
+import {
+  deleteReviewAction,
+  getStudentReviewsAction,
+  updateReviewAction,
+} from "@/actions/student.actions";
+import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 interface Review {
   id: string;
-  reviewText: string;
-  ratings: number;
   tutor_id: string;
-  tutorName: string; // From join with tutor
+  reviewText: string;
+  student_id: string;
+  ratings: number;
   createdAt: string;
 }
 
-export default function MyReviewsTable() {
-  const [reviews, setReviews] = useState<Review[]>([
-    {
-      id: "1",
-      reviewText: "Great tutor! Very patient and explains concepts clearly.",
-      ratings: 5,
-      tutor_id: "tutor-1",
-      tutorName: "Dr. Michael Chen",
-      createdAt: "2024-02-10T10:00:00.000Z",
-    },
-    {
-      id: "2",
-      reviewText: "Helpful sessions, learned a lot about calculus.",
-      ratings: 4,
-      tutor_id: "tutor-2",
-      tutorName: "Emma Thompson",
-      createdAt: "2024-02-08T14:30:00.000Z",
-    },
-    {
-      id: "3",
-      reviewText: "Excellent teaching style and very knowledgeable.",
-      ratings: 5,
-      tutor_id: "tutor-3",
-      tutorName: "Prof. Lisa Anderson",
-      createdAt: "2024-02-05T09:15:00.000Z",
-    },
-  ]);
+export default function MyReviewsTable({ user }: any) {
+  const [reviews, setReviews] = useState([]);
+  const [refetch, setReFetch] = useState(false);
+
+  useEffect(() => {
+    async function fetchStudentReview() {
+      const result = await getStudentReviewsAction(user.id as string);
+      setReviews(result.data.data);
+    }
+    fetchStudentReview();
+  }, [refetch, user?.id]);
 
   const [editingReview, setEditingReview] = useState<Review | null>(null);
   const [editText, setEditText] = useState("");
@@ -49,22 +39,33 @@ export default function MyReviewsTable() {
     setEditRating(review.ratings);
   };
 
-  const handleSaveEdit = () => {
-    if (editingReview) {
-      setReviews(
-        reviews.map((r) =>
-          r.id === editingReview.id
-            ? { ...r, reviewText: editText, ratings: editRating }
-            : r,
-        ),
-      );
-      setEditingReview(null);
+  const handleSaveEdit = async () => {
+    const data = {
+      reviewText: editText,
+      ratings: editRating,
+    };
+    const result = await updateReviewAction(
+      editingReview?.id as string,
+      data as Review,
+    );
+
+    console.log("After edited ", result);
+
+    if (!result.error) {
+      setReFetch((prev) => !prev);
+      toast.success("Review updated");
     }
+    setEditingReview(null);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this review?")) {
-      setReviews(reviews.filter((r) => r.id !== id));
+      const result = await deleteReviewAction(id);
+      console.log(result, "From delete");
+      if (!result?.error) {
+        setReFetch((prev) => !prev);
+        toast.success("Review has been deleted");
+      }
     }
   };
 
@@ -93,7 +94,7 @@ export default function MyReviewsTable() {
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-            {reviews.map((review) => (
+            {reviews?.map((review: any) => (
               <tr
                 key={review.id}
                 className="hover:bg-gray-50 dark:hover:bg-gray-900/50 transition-colors"
@@ -110,7 +111,7 @@ export default function MyReviewsTable() {
                   </div>
                 </td>
                 <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">
-                  {review.tutorName}
+                  {review.tutor.user.name}
                 </td>
                 <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
                   {new Date(review.createdAt).toLocaleDateString("en-US", {
@@ -191,7 +192,7 @@ export default function MyReviewsTable() {
             <div className="flex gap-3 mt-6">
               <button
                 onClick={handleSaveEdit}
-                className="flex-1 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
+                className="flex-1 px-6 py-3 bg-linear-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all"
               >
                 Save Changes
               </button>

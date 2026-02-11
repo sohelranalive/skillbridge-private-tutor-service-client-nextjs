@@ -107,7 +107,7 @@ export const tutorService = {
       if (data.error) {
         return {
           data: null,
-          error: { message: data.error || "Post creation failed" },
+          error: { message: data.error || "Update failed" },
         };
       }
 

@@ -93,11 +93,12 @@ export default function EditUserProfileModal({
                 Member Since
               </label>
               <p className="text-sm font-medium text-gray-900 dark:text-white">
-                {new Date(user.createdAt).toLocaleDateString("en-US", {
-                  month: "long",
-                  day: "numeric",
-                  year: "numeric",
-                })}
+                {user?.createdAt &&
+                  new Date(user.createdAt).toLocaleDateString("en-US", {
+                    month: "long",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
               </p>
             </div>
           </div>

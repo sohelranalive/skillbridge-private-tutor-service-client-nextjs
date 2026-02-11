@@ -21,7 +21,7 @@ export default function TutorBrowser() {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [rating, setRating] = useState(0);
   const [page, setPage] = useState(0);
-  const [limit, setLimit] = useState(0);
+  const [limit, setLimit] = useState(6);
   const [skip, setSkip] = useState(0);
   const [sortBy, setSortBy] = useState("price");
   const [orderBy, setOrderBy] = useState("asc");

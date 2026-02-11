@@ -58,7 +58,6 @@ export const tutorService = {
       return { data: null, error: { message: "Something went wrong" } };
     }
   },
-
   getTutorById: async function (params?: string) {
     try {
       const res = await fetch(

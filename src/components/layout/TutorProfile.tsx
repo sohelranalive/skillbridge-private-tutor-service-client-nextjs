@@ -13,6 +13,7 @@ import Link from "next/link";
 import { AvailabilitySlot } from "@/types";
 import { studentService } from "@/service/student.service";
 import WriteReviewModal from "./modal/WriteTutorReview";
+import { Status } from "@/constants/status";
 
 export default function TutorProfile({ tutor }: any) {
   const {
@@ -51,6 +52,10 @@ export default function TutorProfile({ tutor }: any) {
     }
     if (!(data.user.role === Roles.student)) {
       return toast.info("Only student is allowed to book sessions");
+    }
+
+    if (!(data.user.status === Status.active)) {
+      return toast.info("You're Banned ! try to contract to our helpline");
     }
 
     const isAlreadyBooked = await getExistingBookingAction({
@@ -331,12 +336,7 @@ export default function TutorProfile({ tutor }: any) {
                 Book a Session
               </h3>
 
-              {!availability.length ? (
-                <>
-                  {" "}
-                  <h3>Tutor has no session currently</h3>
-                </>
-              ) : (
+              {availability.length && user.status === Status.active ? (
                 <div className="space-y-6">
                   <div className="space-y-3">
                     {availability?.map((slot: any) => (
@@ -422,6 +422,10 @@ export default function TutorProfile({ tutor }: any) {
                   >
                     Book Now
                   </button>
+                </div>
+              ) : (
+                <div className="space-y-6">
+                  <h3>Tutor is either banned or has no session currently</h3>
                 </div>
               )}
             </div>

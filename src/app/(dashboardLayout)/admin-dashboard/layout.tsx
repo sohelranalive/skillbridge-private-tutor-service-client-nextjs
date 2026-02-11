@@ -1,3 +1,4 @@
+import LogoutButton from "@/components/authentications/LogoutButton";
 import { userService } from "@/service/user.service";
 import Link from "next/link";
 
@@ -38,18 +39,39 @@ export default async function AdminDashboardLayout({
 
         <nav className="flex-1 space-y-2">
           <Link
-            href="/student-dashboard"
+            href="/admin-dashboard"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
+          >
+            <span className="text-xl">📊</span>
+            Statistics
+          </Link>
+          <Link
+            href="/admin-dashboard/students"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
+          >
+            <span className="text-xl">🧑‍🎓</span>
+            Students
+          </Link>
+          <Link
+            href="/admin-dashboard/tutors"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
+          >
+            <span className="text-xl">🧑‍🏫</span>
+            Tutors
+          </Link>
+          <Link
+            href="/admin-dashboard/bookings"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
           >
             <span className="text-xl">📅</span>
-            My Session
+            All Bookings
           </Link>
           <Link
-            href="/student-dashboard/review"
+            href="/admin-dashboard/category"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
           >
-            <span className="text-xl">📝</span>
-            My Reviews
+            <span className="text-xl">📚</span>
+            Categories
           </Link>
           <Link
             href="/profile"
@@ -60,12 +82,7 @@ export default async function AdminDashboardLayout({
           </Link>
         </nav>
 
-        <div className="pt-6 border-t border-gray-200">
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl font-medium transition-all">
-            <span className="text-xl">⏻</span>
-            Logout
-          </button>
-        </div>
+        <LogoutButton />
       </aside>
       <main className="ml-72 p-8">
         {/* Header */}
@@ -73,9 +90,7 @@ export default async function AdminDashboardLayout({
           <h1 className="text-4xl font-bold mb-2 serif-font text-gray-900">
             Welcome back, {user.name.split(" ")[0]}! 👋
           </h1>
-          <p className="text-gray-600">
-            Ready to continue your learning journey?
-          </p>
+          <p className="text-gray-600">Ready to continue?</p>
         </header>
         <div className="grid">{children}</div>
       </main>

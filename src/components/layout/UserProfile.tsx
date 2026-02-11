@@ -74,7 +74,7 @@ export default function UserProfile({ user }: any) {
                     <span className="px-3 py-1 bg-blue-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm font-semibold">
                       {tutor.isVerified
                         ? "Happy Teaching"
-                        : "Complete your profile & start Teaching"}
+                        : "Verify Yourself & Complete your profile !"}
                     </span>
                   )}
                 </div>
@@ -110,11 +110,11 @@ export default function UserProfile({ user }: any) {
                   tutor={tutor}
                 />
 
-                <Link href="/student-dashboard">
+                {/* <Link href="/student-dashboard">
                   <button className="px-6 py-3 bg-white dark:bg-gray-700 border-2 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-gray-600 transition-all">
                     Dashboard
                   </button>
-                </Link>
+                </Link> */}
                 <button
                   onClick={handleLogout}
                   className="px-6 py-3 bg-white dark:bg-gray-700 border-2 border-red-300 dark:border-red-800 text-red-600 dark:text-red-400 rounded-xl font-semibold hover:bg-red-50 dark:hover:bg-red-900/20 transition-all"

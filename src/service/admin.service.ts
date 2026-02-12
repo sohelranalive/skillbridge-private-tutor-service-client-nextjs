@@ -64,8 +64,6 @@ export const adminService = {
       });
       const data = await res.json();
 
-      console.log("Inside Service", data);
-
       if (data.error) {
         return {
           data: null,

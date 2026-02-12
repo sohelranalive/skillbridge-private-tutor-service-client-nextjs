@@ -49,8 +49,6 @@ export default function MyReviewsTable({ user }: any) {
       data as Review,
     );
 
-    console.log("After edited ", result);
-
     if (!result.error) {
       setReFetch((prev) => !prev);
       toast.success("Review updated");
@@ -61,7 +59,6 @@ export default function MyReviewsTable({ user }: any) {
   const handleDelete = async (id: string) => {
     if (confirm("Are you sure you want to delete this review?")) {
       const result = await deleteReviewAction(id);
-      console.log(result, "From delete");
       if (!result?.error) {
         setReFetch((prev) => !prev);
         toast.success("Review has been deleted");

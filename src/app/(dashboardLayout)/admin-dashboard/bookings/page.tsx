@@ -4,8 +4,6 @@ export default async function BookingPage() {
   const allBookingData = await adminService.getBooking();
   const bookings = allBookingData?.data?.data;
 
-  console.log(bookings);
-
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
       {/* Table */}

@@ -15,9 +15,6 @@ export default async function AdminDashboardHome() {
   const allBookingData = await adminService.getBooking();
   const bookings = allBookingData.data.data;
 
-  console.log("Tutors Data: ", tutors);
-  console.log("Booking Data: ", bookings);
-
   return (
     <div className="space-y-4">
       <TutorCharts tutors={tutors} />

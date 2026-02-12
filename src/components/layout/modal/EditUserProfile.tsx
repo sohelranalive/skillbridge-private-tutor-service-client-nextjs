@@ -28,15 +28,6 @@ export default function EditUserProfileModal({
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // TODO: Replace with your API call
-    // console.log("Updating user profile:", {
-    //   id: user.id,
-    //   ...formData,
-    // });
-
-    // await new Promise((resolve) => setTimeout(resolve, 1000));
-
     const { data, error } = await authClient.updateUser({
       ...formData,
     });

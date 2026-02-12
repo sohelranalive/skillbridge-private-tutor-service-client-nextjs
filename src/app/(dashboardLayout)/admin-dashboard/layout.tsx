@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+
+import { getSessionAction } from "@/actions/user.actions";
 import LogoutButton from "@/components/authentications/LogoutButton";
 import { userService } from "@/service/user.service";
 import Link from "next/link";
@@ -7,7 +10,7 @@ export default async function AdminDashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isUserSignedIn = await userService.getSession();
+  const isUserSignedIn = await getSessionAction();
   const user = isUserSignedIn?.data?.user;
 
   return (

@@ -11,15 +11,16 @@ export type CommonNavbarUser = {
   role?: string;
 };
 
+export type Brand = {
+  name: string;
+};
+
 type Props = {
-  brand?: string;
+  brand?: Brand;
   user: CommonNavbarUser;
 };
 
-export default function CommonNavbarClient({
-  brand = "SkillBridge",
-  user,
-}: Props) {
+export default function CommonNavbarClient({ brand, user }: Props) {
   let dashboardUrl = "";
 
   if (user.role === Roles.admin) {
@@ -47,7 +48,7 @@ export default function CommonNavbarClient({
             className="text-2xl font-bold bg-linear-to-r from-orange-600 to-rose-600 bg-clip-text text-transparent"
             style={{ fontFamily: "Fraunces, serif" }}
           >
-            {brand}
+            {brand?.name}
           </span>
         </Link>
 

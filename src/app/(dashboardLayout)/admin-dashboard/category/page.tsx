@@ -34,10 +34,8 @@ export default function CategoryPage() {
   };
 
   const handleDeleteCategory = async (id: string) => {
-    console.log(id);
     if (confirm("Are you sure you want to banned the user?")) {
       const result = await deleteCategoryAction(id);
-      console.log(result);
       if (!result?.error) {
         setFetchCategory((prev) => !prev);
         toast.success("User has been deleted");

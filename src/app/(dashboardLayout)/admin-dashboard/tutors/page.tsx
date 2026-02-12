@@ -52,9 +52,6 @@ export default function TutorPage() {
       }
     }
   };
-
-  console.log(tutors);
-
   return (
     <div className="bg-white dark:bg-gray-800 rounded-2xl border border-gray-200 dark:border-gray-700 overflow-hidden">
       {/* Table */}

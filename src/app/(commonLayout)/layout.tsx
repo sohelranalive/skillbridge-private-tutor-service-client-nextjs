@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import CommonNavbar from "@/components/home-layout/CommonNavbar";
 
 export default function CommonLayout({

@@ -19,7 +19,7 @@ interface serviceOption {
 }
 
 import { tutorService } from "@/service/tutor.service";
-import { TutorProfile } from "@/types";
+import { AvailabilitySlot, TutorProfile } from "@/types";
 
 export const getTutorAction = async (
   params?: getTutorParams,
@@ -37,4 +37,16 @@ export const updateTutorByIdAction = async (
   payload: TutorProfile,
 ) => {
   return await tutorService.updateTutorById(params, payload);
+};
+
+export const deleteAvailabilityAction = async (params: string) => {
+  return await tutorService.deleteAvailability(params);
+};
+
+export const setAvailabilityAction = async (payload: AvailabilitySlot) => {
+  return await tutorService.setAvailability(payload);
+};
+
+export const getTutorAvailabilityAction = async (params: string) => {
+  return await tutorService.getTutorAvailability(params);
 };

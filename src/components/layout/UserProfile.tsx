@@ -3,31 +3,39 @@
 import { getTutorByUserIdAction } from "@/actions/tutor.actions";
 import { Roles } from "@/constants/roles";
 import { authClient } from "@/lib/auth-client";
-import { TutorProfile } from "@/types";
+import { TutorProfile, User } from "@/types";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import Link from "next/link";
 import EditUserProfileModal from "./modal/EditUserProfile";
 import EditTutorProfileModal from "./modal/EditTutorProfile";
+import { getSessionAction } from "@/actions/user.actions";
 
 export default function UserProfile({ user }: any) {
   const [isTutor, setIsTutor] = useState(false);
   const [tutor, setTutor] = useState<TutorProfile>({});
+  // const [user, setUser] = useState<User>([]);
+
+  // useEffect(() => {
+  //   async function fetchUser() {
+  //     const isUserSignedIn = await getSessionAction();
+  //     setUser(isUserSignedIn?.data?.user);
+  //   }
+  //   fetchUser();
+  // }, []);
 
   useEffect(() => {
-    if (user.role !== Roles.tutor) {
+    if (user?.role !== Roles.tutor) {
       return;
     }
-    async function fetchUser() {
+    async function fetchTutor() {
       const result = await getTutorByUserIdAction(user?.id as string);
       setTutor(result.data?.data);
       setIsTutor(true);
     }
-    fetchUser();
-  }, [user.role]);
+    fetchTutor();
+  }, [user?.role]);
 
-  // console.log(tutor);
-  // console.log(isTutor);
   const handleLogout = async () => {
     const toastId = toast.loading("Logging Out");
     const { data, error } = await authClient.signOut({
@@ -72,7 +80,7 @@ export default function UserProfile({ user }: any) {
                   </span>
                   {isTutor && (
                     <span className="px-3 py-1 bg-blue-50 dark:bg-orange-900/30 text-orange-700 dark:text-orange-400 rounded-full text-sm font-semibold">
-                      {tutor.isVerified
+                      {tutor?.isVerified
                         ? "Happy Teaching"
                         : "Verify Yourself & Complete your profile !"}
                     </span>

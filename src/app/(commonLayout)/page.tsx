@@ -18,15 +18,15 @@ export default async function Home() {
       cache: "no-store",
     },
   );
-  const tutors = featuredTutors.data?.data.data.slice(0, 4) || [];
+  const tutors = featuredTutors?.data?.data.data.slice(0, 4) || [];
 
   // Getting category for landing page
   const teachingCategory = await adminService.getCategory();
-  const categories = teachingCategory.data?.data || [];
+  const categories = teachingCategory?.data?.data || [];
 
   // Getting review for landing page
   const studentReview = await studentService.getReview();
-  const reviews = studentReview.data?.data.slice(0, 3) || [];
+  const reviews = studentReview?.data?.data.slice(0, 3) || [];
 
   return (
     <div className="landing-page min-h-screen bg-linear-to-br from-amber-50 via-orange-50 to-rose-50">

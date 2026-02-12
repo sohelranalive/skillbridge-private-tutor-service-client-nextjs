@@ -35,26 +35,30 @@ export default function EditTutorProfileModal({
     fetchCategory();
   }, []);
 
+  const parseCommaString = (value: unknown): string[] => {
+    if (typeof value === "string") {
+      return value
+        .split(",")
+        .map((v) => v.trim())
+        .filter(Boolean);
+    }
+    if (Array.isArray(value)) {
+      return value;
+    }
+    return [];
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setIsSubmitting(true);
 
     const data = {
       tutor_category: formData.tutor_category,
-      subjects: formData.subjects
-        ?.split(",")
-        .map((s) => s.trim())
-        .filter(Boolean),
+      subjects: parseCommaString(formData.subjects),
       price: formData.price,
       about: formData.about,
-      education: formData.education
-        ?.split(",")
-        .map((e) => e.trim())
-        .filter(Boolean),
-      language: formData.language
-        ?.split(",")
-        .map((l) => l.trim())
-        .filter(Boolean),
+      education: parseCommaString(formData.education),
+      language: parseCommaString(formData.language),
       isVerified: formData.isVerified,
     };
 

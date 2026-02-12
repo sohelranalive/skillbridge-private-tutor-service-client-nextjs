@@ -1,3 +1,6 @@
+export const dynamic = "force-dynamic";
+
+import { getSessionAction } from "@/actions/user.actions";
 import LogoutButton from "@/components/authentications/LogoutButton";
 import { authClient } from "@/lib/auth-client";
 import { userService } from "@/service/user.service";
@@ -9,7 +12,7 @@ export default async function StudentDashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isUserSignedIn = await userService.getSession();
+  const isUserSignedIn = await getSessionAction();
   const user = isUserSignedIn?.data?.user;
 
   return (

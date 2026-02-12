@@ -1,8 +1,9 @@
+import { getSessionAction } from "@/actions/user.actions";
 import { studentService } from "@/service/student.service";
 import { userService } from "@/service/user.service";
 
 export default async function StudentDashboardHome() {
-  const isUserSignedIn = await userService.getSession();
+  const isUserSignedIn = await getSessionAction();
   const user = isUserSignedIn?.data?.user;
 
   const allSessions = await studentService.getBookingByStudentId(user.id);

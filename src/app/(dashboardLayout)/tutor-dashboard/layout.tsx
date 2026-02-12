@@ -1,3 +1,7 @@
+export const dynamic = "force-dynamic";
+
+import { getSessionAction } from "@/actions/user.actions";
+import LogoutButton from "@/components/authentications/LogoutButton";
 import { userService } from "@/service/user.service";
 import Link from "next/link";
 
@@ -6,7 +10,7 @@ export default async function TutorDashboardLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const isUserSignedIn = await userService.getSession();
+  const isUserSignedIn = await getSessionAction();
   const user = isUserSignedIn?.data?.user;
 
   return (
@@ -38,18 +42,32 @@ export default async function TutorDashboardLayout({
 
         <nav className="flex-1 space-y-2">
           <Link
-            href="/student-dashboard"
+            href="/tutor-dashboard"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
           >
             <span className="text-xl">📅</span>
-            My Session
+            Booked Session
           </Link>
           <Link
-            href="/student-dashboard/review"
+            href="/tutor-dashboard/students"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
           >
-            <span className="text-xl">📝</span>
-            My Reviews
+            <span className="text-xl">🎓</span>
+            Enrolled Students
+          </Link>
+          <Link
+            href="/tutor-dashboard/reviews"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
+          >
+            <span className="text-xl">⭐</span>
+            Student Feedback
+          </Link>
+          <Link
+            href="/tutor-dashboard/availability"
+            className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all text-gray-600 hover:bg-gray-300"
+          >
+            <span className="text-xl">🕒</span>
+            My Availability
           </Link>
           <Link
             href="/profile"
@@ -61,10 +79,7 @@ export default async function TutorDashboardLayout({
         </nav>
 
         <div className="pt-6 border-t border-gray-200">
-          <button className="w-full flex items-center gap-3 px-4 py-3 text-gray-600 hover:bg-gray-100 rounded-xl font-medium transition-all">
-            <span className="text-xl">⏻</span>
-            Logout
-          </button>
+          <LogoutButton />
         </div>
       </aside>
       <main className="ml-72 p-8">
@@ -74,7 +89,7 @@ export default async function TutorDashboardLayout({
             Welcome back, {user.name.split(" ")[0]}! 👋
           </h1>
           <p className="text-gray-600">
-            Ready to continue your learning journey?
+            Ready to continue your Teaching journey?
           </p>
         </header>
         <div className="grid">{children}</div>

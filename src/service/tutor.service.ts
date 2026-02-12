@@ -1,5 +1,5 @@
 import { env } from "@/env";
-import { TutorProfile } from "@/types";
+import { AvailabilitySlot, TutorProfile } from "@/types";
 import { cookies } from "next/headers";
 
 const API_URL = env.API_URL;
@@ -107,6 +107,116 @@ export const tutorService = {
         return {
           data: null,
           error: { message: data.error || "Update failed" },
+        };
+      }
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  getBookingByTutorId: async function (params: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(
+        `${API_URL}/api/v1/tutor/all-bookings/${params}`,
+        {
+          method: "GET",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
+
+      const data = await res.json();
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  getReviewsBtTutorId: async function (params?: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(`${API_URL}/api/v1/tutor/all-reviews/${params}`, {
+        method: "GET",
+        headers: {
+          Cookie: cookieStore.toString(),
+        },
+      });
+
+      const data = await res.json();
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  getTutorAvailability: async function (params?: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(
+        `${API_URL}/api/v1/tutor/availability/${params}`,
+        {
+          method: "GET",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
+
+      const data = await res.json();
+
+      return { data: data, error: null };
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  deleteAvailability: async function (params?: string) {
+    try {
+      const cookieStore = await cookies();
+
+      const res = await fetch(
+        `${API_URL}/api/v1/tutor/delete-availability/${params}`,
+        {
+          method: "DELETE",
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+        },
+      );
+
+      if (res.status === 404) {
+        return { data: null, error: { message: "Booking exits" } };
+      }
+
+      if (res.status === 204) {
+        return { data: "Deleted", error: null };
+      }
+    } catch (error) {
+      return { data: null, error: { message: "Something went wrong" } };
+    }
+  },
+  setAvailability: async function (payload: AvailabilitySlot) {
+    try {
+      const cookieStore = await cookies();
+      const res = await fetch(`${API_URL}/api/v1/tutor/tutor-availability`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Cookie: cookieStore.toString(),
+        },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (data.error) {
+        return {
+          data: null,
+          error: { message: data.error || "Availability creation failed" },
         };
       }
 

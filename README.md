@@ -4,6 +4,12 @@
 
 The SkillBridge Private Tutor Service frontend is a modern **Next.js 16** application built with **TypeScript** and **React 19**. It provides an intuitive user interface for students to find and book tutors, tutors to manage their profiles and availability, and administrators to oversee platform operations. The frontend communicates with the backend API and implements client-side authentication using **Better-Auth**.
 
+Frontend Live : https://skillbridge-private-tutor-service-c.vercel.app
+
+Frontend Repo : https://github.com/sohelranalive/skillbridge-private-tutor-service-client-nextjs
+
+Backend Repo : https://github.com/sohelranalive/SkillBridge-private-tutor-service-server
+
 ## Table of Contents
 
 - [Architecture](#architecture)
